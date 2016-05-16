@@ -31,6 +31,10 @@ class ProductCategoryController extends Controller{
   }
   protected function create(Request $request) {
     $cate = new ProductCategoryModel();
-    $cate->save($request);
+    $cate->create($request->all());
+  }
+  protected function update(Request $request) {
+    $cate = new ProductCategoryModel();
+    $cate->save($request->all());
   }
 }

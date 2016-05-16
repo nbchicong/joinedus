@@ -17,7 +17,8 @@ class CreateProductCategoryTable extends Migration
             $table->increments('id')->unique();
             $table->string('name');
             $table->string('parentCateId');
-            $table->timestamps();
+            $table->date('updated_at');
+            $table->date('created_at');
         });
     }
 

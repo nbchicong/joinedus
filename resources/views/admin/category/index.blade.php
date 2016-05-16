@@ -8,47 +8,77 @@
         </div><!-- /.ace-settings-container -->
         <div class="page-header">
             <h1>
-                Email Templates
-                <small>
-                    <i class="ace-icon fa fa-angle-double-right"></i>
-                    along with an email converter tool
-                </small>
+                Danh sách loại sản phẩm
+                {{--<small>--}}
+                    {{--<i class="ace-icon fa fa-angle-double-right"></i>--}}
+                    {{--along with an email converter tool--}}
+                {{--</small>--}}
             </h1>
         </div><!-- /.page-header -->
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
-                <div class="alert alert-block alert-info">
-                    <button type="button" class="close" data-dismiss="alert">
-                        <i class="ace-icon fa fa-times"></i>
-                    </button>
-                    The following sample email templates are converted using the provided email tool which
-                    converts normal Bootstrap HTML to email friendly table layout with inline CSS!
+                <div id="list-items">
+                    <div class="row">
+                        <table id="simple-table" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Create At</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if(count($categoryList) > 0)
+                                @foreach($categoryList as $cate)
+                                    <tr>
+                                        <td>
+                                            <a href="#">{{$cate->name}}</a>
+                                        </td>
+                                        <td>{{$cate->create_at}}</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr><td colspan="2">Không có dữ liệu để hiển thị</td></tr>
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="space-12"></div>
-                <div class="row">
-                    <table id="simple-table" class="table  table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Create At</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                    @if(count($categoryList) > 0)
-                        @foreach($categoryList as $cate)
-                        <tr>
-                            <td>
-                                <a href="#">{{$cate->name}}</a>
-                            </td>
-                            <td>{{$cate->create_at}}</td>
-                        </tr>
-                        @endforeach
-                    @else
-                        <tr><td colspan="2">Không có dữ liệu để hiển thị</td></tr>
-                    @endif
-                        </tbody>
-                    </table>
+                <div class="modal fade" id="modal-category" tabindex="-1" role="dialog" aria-labelledby="modal-category">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="modal-request-label">Loại sản phẩm</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="cash-request-value" class="col-sm-3 control-label">Tên loại</label>
+                                        <div class="col-sm-9">
+                                            <input class="form-control" id="txt-cate-name" placeholder="Tên loại">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cash-request-message" class="col-sm-3 control-label">Thuộc loại/nhóm</label>
+                                        <div class="col-sm-9">
+                                            <select id="cbb-cate-parent" class="form-control">
+                                                @if(count($categoryList) > 0)
+                                                    @foreach($categoryList as $cate)
+                                                <option value="{{$cate->id}}">{{$cate->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Hủy bỏ</button>
+                                <button id="btn-send-request" type="button" class="btn btn-primary" data-action="save"><i class="fa fa-save"></i> Lưu</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- PAGE CONTENT ENDS -->
             </div><!-- /.col -->

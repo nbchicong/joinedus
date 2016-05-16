@@ -27,10 +27,15 @@ Route::get('/about', function () {
 Route::get('/admin', function () {
   return view('admin.home');
 });
-Route::get('/admin/category/index','Admin\ProductCategoryController@index');
-Route::post('/admin/category/create','ProductCategoryController@create');
-Route::post('/admin/category/update','ProductCategoryController@update');
-// Kiểm tra người dùng đăng nhập
+Route::get('/admin/product/category','Admin\ProductCategoryController@index');
+Route::post('/admin/product/category/create','Admin\ProductCategoryController@create');
+Route::post('/admin/product/category/update','Admin\ProductCategoryController@update');
+Route::group(['middleware' => ['roles:super_admin']], function() {
+
+});
+Route::get('/admin/users','Admin\ProductCategoryController@index');
+Route::post('/admin/users/create','Admin\ProductCategoryController@create');
+Route::post('/admin/users/update','Admin\ProductCategoryController@update');
 Route::group(['middleware' => ['roles:super_admin']], function() {
 
 });

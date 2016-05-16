@@ -168,6 +168,33 @@ BaseUI.apply = function (obj, config, defaults) {
       return toString.apply(v) === '[object Function]';
     },
     /**
+     * Returns true if the passed object is a JavaScript Object, otherwise false.
+     *
+     * @param {Object} object The object to test
+     * @return {Boolean}
+     */
+    isObject: function (v) {
+      return v && typeof v == "object";
+    },
+    /**
+     * Returns true if the passed object is a string.
+     *
+     * @param {Object} v The object to test
+     * @return {Boolean}
+     */
+    isString: function (v) {
+      return typeof v === 'string';
+    },
+    /**
+     * Returns true if the passed object is a boolean.
+     *
+     * @param {Object} v The object to test
+     * @return {Boolean}
+     */
+    isBoolean: function (v) {
+      return typeof v === 'boolean';
+    },
+    /**
      * Returns true if the passed value is null, undefined or an empty string.
      * @param {Mixed} value The value to test
      * @param {Boolean} allowBlank (optional) true to allow empty strings (defaults to false)
@@ -194,6 +221,38 @@ BaseUI.apply = function (obj, config, defaults) {
      */
     isArray: function(object){
       return object && typeof object.length == 'number' && typeof object.splice == 'function';
+    },
+    /**
+     * Returns true if the passed object is not undefined.
+     *
+     * @param {Object} v The object to test
+     * @return {Boolean}
+     */
+    isDefined: function (v) {
+      return typeof v !== 'undefined';
+    },
+    /**
+     * Return true if passed object is empty.
+     * @param {Mixed} value The value to test
+     * @returns {boolean}
+     */
+    isEmptyObject: function(v){
+      if(!BaseUI.isObject(v)) {
+        return false;
+      }
+      for(var key in v){
+        return false;
+      }
+      return true;
+    },
+    /**
+     * Returns true if the passed object is a email.
+     *
+     * @param {Object} v The object to test
+     * @return {Boolean}
+     */
+    isEmail: function (v) {
+      return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v);
     },
     /**
      * A reusable empty function
@@ -239,12 +298,45 @@ BaseUI.apply = function (obj, config, defaults) {
       };
     }(),
     /**
+     * Clone object
+     * @param {Object} obj
+     */
+    clone: function (obj) {
+      if (null == obj || "object" != typeof obj) {
+        return obj;
+      }
+      var copy = obj.constructor();
+      for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) {
+          copy[attr] = obj[attr];
+        }
+      }
+      return copy;
+    },
+    /**
+     * @param {String} namespace1
+     * @param {String} namespace2
+     * @param {String} etc
+     * @method namespace
+     */
+    namespace: function () {
+      var o, d;
+      iNet.each(arguments, function (v) {
+        d = v.split(".");
+        o = window[d[0]] = window[d[0]] || {};
+        iNet.each(d.slice(1), function (v2) {
+          o = o[v2] = o[v2] || {};
+        });
+      });
+      return o;
+    },
+    /**
      * Copies all the properties of config to obj if they don't already exist.
      * @param {Object} obj The receiver of the properties
      * @param {Object} config The source of the properties
      * @return {Object} returns obj
      */
-    applyIf: function(obj, config){
+    applyIf: function(obj, config) {
       if(obj && config){
         for(var p in config){
           if(typeof obj[p] == "undefined"){ obj[p] = config[p]; }
@@ -292,7 +384,7 @@ BaseUI.apply = function (obj, config, defaults) {
      * @return {Function} The subclass constructor.
      * @method extend
      */
-    extend: function(){
+    extend: function() {
       // inline overrides
       var io = function(o){
         for(var m in o){
@@ -342,7 +434,7 @@ BaseUI.apply = function (obj, config, defaults) {
      * containing one or more methods.
      * @method override
      */
-    override: function(originClass, overrides){
+    override: function(originClass, overrides) {
       if(overrides){
         var p = originClass.prototype;
         for(var method in overrides){
@@ -354,6 +446,7 @@ BaseUI.apply = function (obj, config, defaults) {
       }
     }
   });
+  BaseUI.ns = BaseUI.namespace;
 })();
 /**
  * @class String
