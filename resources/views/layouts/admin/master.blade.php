@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('css/admin/ace-part2.min.css')}}" class="ace-main-stylesheet" />
     <link rel="stylesheet" href="{{asset('css/admin/ace-ie.min.css')}}" />
     <![endif]-->
+    <link rel="stylesheet" href="{{asset('css/admin/style.css')}}" />
     <script type="text/javascript" src="{{asset('js/admin/ace-extra.min.js')}}"></script>
 </head>
 <body class="no-skin">
@@ -27,11 +28,15 @@
 <!--[if IE]>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <![endif]-->
-<script type="text/javascript">
-    if ('ontouchstart' in document.documentElement) document.write("<script src='./components/_mod/jquery.mobile.custom/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-</script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="{{asset('js/jquery/plugin/notify.min.js')}}"></script>
 <script src="{{asset('js/admin/ace-elements.min.js')}}"></script>
 <script src="{{asset('js/admin/ace.min.js')}}"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="{{asset('js/Base.js')}}"></script>
+<script src="{{asset('js/Clazz.js')}}"></script>
+<script src="{{asset('js/Component.js')}}"></script>
+<script src="{{asset('js/Hashtable.js')}}"></script>
+<script src="{{asset('js/components/Notify.js')}}"></script>
+<script src="{{asset('js/class/Entity.js')}}"></script>
+@yield('script')
 </body>

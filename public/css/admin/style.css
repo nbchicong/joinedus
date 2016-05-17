@@ -1,0 +1,22 @@
+.btn {
+    border-color: transparent;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+.btn:hover,
+.btn:active,
+.btn:focus:active,
+.btn:hover:active,
+.btn:focus:hover,
+.btn:focus {
+    border-color: transparent;
+}
+.toolbar {
+    top: 86px;
+    padding: 5px 8px;
+    line-height: normal;
+}
+.breadcrumbs-fixed.toolbar+.page-content {
+    padding-top: 86px;
+}
