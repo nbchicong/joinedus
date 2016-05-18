@@ -1,0 +1,14 @@
+{
+  "name": "social-ui",
+  "version": "1.0.0",
+  "description": "social",
+  "author": "hanhld@inetcloud.vn",
+  "license": "iNet Solutions",
+  "dependencies": {
+    "gulp": "~3.9.1",
+    "gulp-zip": "~3.2.0",
+    "fs-extra": "~0.30.0",
+    "uglify-js": "~2.6.2",
+    "clean-css": "~3.4.12"
+  }
+}
