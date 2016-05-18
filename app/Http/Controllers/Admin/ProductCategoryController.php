@@ -25,16 +25,23 @@ use App\Http\Controllers\Controller;
 
 class ProductCategoryController extends Controller{
   protected function index() {
-    $category = ProductCategoryModel::orderBy('created_at','desc')->paginate(5);
-    $title = 'Danh thể loại';
+    $category = ProductCategoryModel::paginate(0);
+    $title = 'Danh sách thể loại';
     return view('admin.category.index', ['categoryList'=>$category, 'title'=>$title]);
   }
   protected function create(Request $request) {
     $cate = new ProductCategoryModel();
-    $cate->create($request->all());
+    $cate = $cate->create($request->all());
+    return response()->json(array('success'=>isset($cate->id)));
   }
   protected function update(Request $request) {
     $cate = new ProductCategoryModel();
-    $cate->save($request->all());
+    $cate = $cate->find($request->id);
+    return response()->json(array('success'=>$cate->save($request->all())));
+  }
+  protected function delete($cateId) {
+    $cate = new ProductCategoryModel();
+    $cate = $cate->find($cateId);
+    return response()->json(array('success'=>$cate->delete()));
   }
 }

@@ -64,13 +64,19 @@ $(function () {
       if (!BaseUI.isEmpty(this.getEntityId())) {
         __data.id = this.getEntityId();
         this.setParams(__data);
-        this.update(function () {
-          console.log('%cUpdate success', 'color: #00FF00');
+        this.update(function (data) {
+          _this.responseHandle(data, function (response) {
+            _this.$modalAdd.modal('hide');
+            _this.notify('Update success', 'success');
+            console.log('%cUpdate success', 'color: #00FF00');
+          });
         })
       } else {
         this.setParams(__data);
         this.create(function (data) {
-          _this.responseHandle(data, function () {
+          _this.responseHandle(data, function (response) {
+            _this.$modalAdd.modal('hide');
+            _this.notify('Create success', 'success');
             console.log('%cCreate success', 'color: #00FF00');
           });
         });

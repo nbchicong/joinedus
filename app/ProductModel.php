@@ -28,6 +28,8 @@ class ProductModel extends BaseModel {
       'quantity',
       'availability',
       'price',
+      'promotions',
+      'discount',
       'details',
       'tags',
       'rating');

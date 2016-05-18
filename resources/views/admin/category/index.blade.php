@@ -1,4 +1,7 @@
 @extends('layouts.admin.layout')
+@section('page_title')
+    {{$title}}
+@endsection
 @section('content')
     <div class="toolbar breadcrumbs ace-save-state breadcrumbs-fixed">
         <button id="btn-add" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-category">

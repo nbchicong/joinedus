@@ -11,19 +11,29 @@
 |
 */
 
-Route::get('/', function () {
-  return view('welcome');
-});
+// WEB E-SHOPPER
+Route::get('/','Web\HomeController@index');
 Route::get('/index', 'Web\HomeController@index');
-Route::get('/news', function () {
-  return view('news');
+Route::get('/products','Web\HomeController@products');
+Route::get('/products/details/{id}','Web\HomeController@productDetails');
+Route::get('/products/categories/{name}','Web\HomeController@productCategories');
+Route::get('/products/brands/{name}/{category?}','Web\HomeController@productBrands');
+Route::get('/blog','Web\HomeController@blog');
+Route::get('/blog/post/{id}','Web\HomeController@blogItem');
+Route::get('/contact-us','Web\HomeController@contactUs');
+Route::get('/login','Web\HomeController@login');
+Route::get('/logout','Web\HomeController@logout');
+Route::get('/cart','Web\HomeController@cart');
+Route::get('/checkout','Web\HomeController@checkout');
+Route::get('/search/{query}','Web\HomeController@search');
+
+Route::get('blade', function () {
+  $drinks = array('Vodka','Gin','Brandy');
+  return view('page',array('name' => 'The Raven','day' => 'Friday','drinks' => $drinks));
 });
-Route::get('/products', function () {
-  return view('products');
-});
-Route::get('/about', function () {
-  return view('about');
-});
+
+// ADMIN
+
 Route::get('/admin', function () {
   return view('admin.home');
 });
