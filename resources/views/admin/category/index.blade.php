@@ -90,5 +90,5 @@
     </div><!-- /.page-content -->
 @endsection
 @section('script')
-    <script src="{{asset('js/admin/category/CategoryEntity.js')}}"></script>
+    <script src="{{asset('js/admin/libs/category-entity.min.js')}}"></script>
 @endsection

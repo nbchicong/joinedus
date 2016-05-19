@@ -32,11 +32,9 @@
 <script src="{{asset('js/jquery/plugin/notify.min.js')}}"></script>
 <script src="{{asset('js/admin/ace-elements.min.js')}}"></script>
 <script src="{{asset('js/admin/ace.min.js')}}"></script>
-<script src="{{asset('js/Base.js')}}"></script>
-<script src="{{asset('js/Clazz.js')}}"></script>
-<script src="{{asset('js/Component.js')}}"></script>
-<script src="{{asset('js/Hashtable.js')}}"></script>
-<script src="{{asset('js/components/Notify.js')}}"></script>
-<script src="{{asset('js/class/Entity.js')}}"></script>
+<script src="{{asset('js/libs/base.min.js')}}"></script>
+<script src="{{asset('js/libs/hashtable.min.js')}}"></script>
+<script src="{{asset('js/libs/components/notify.min.js')}}"></script>
+<script src="{{asset('js/libs/class/entity.min.js')}}"></script>
 @yield('script')
 </body>
