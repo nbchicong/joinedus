@@ -12,8 +12,8 @@
 */
 
 // WEB E-SHOPPER
-Route::get('/','Web\HomeController@index');
-Route::get('/index', 'Web\HomeController@index');
+Route::get('/{lang?}','Web\HomeController@index');
+Route::get('/{lang?}/index', 'Web\HomeController@index');
 Route::get('/products','Web\HomeController@products');
 Route::get('/products/details/{id}','Web\HomeController@productDetails');
 Route::get('/products/categories/{name}','Web\HomeController@productCategories');
@@ -27,6 +27,9 @@ Route::get('/cart','Web\HomeController@cart');
 Route::get('/checkout','Web\HomeController@checkout');
 Route::get('/search/{query}','Web\HomeController@search');
 
+Route::post('/auth/login','Auth\AuthController@login');
+Route::post('/auth/register','Auth\AuthController@create');
+
 Route::get('blade', function () {
   $drinks = array('Vodka','Gin','Brandy');
   return view('page',array('name' => 'The Raven','day' => 'Friday','drinks' => $drinks));
@@ -37,15 +40,15 @@ Route::get('blade', function () {
 Route::get('/admin', function () {
   return view('admin.home');
 });
-Route::get('/admin/product/category','Admin\ProductCategoryController@index');
-Route::post('/admin/product/category/create','Admin\ProductCategoryController@create');
-Route::post('/admin/product/category/update','Admin\ProductCategoryController@update');
-Route::group(['middleware' => ['roles:super_admin']], function() {
-
+Route::group(['middleware' => ['roles:admin']], function() {
+  Route::get('/admin/product/category','Admin\ProductCategoryController@index');
+  Route::get('/admin/product/category/list','Admin\ProductCategoryController@listCate');
+  Route::post('/admin/product/category/create','Admin\ProductCategoryController@create');
+  Route::post('/admin/product/category/update','Admin\ProductCategoryController@update');
+  Route::post('/admin/product/category/remove','Admin\ProductCategoryController@delete');
 });
-Route::get('/admin/users','Admin\ProductCategoryController@index');
-Route::post('/admin/users/create','Admin\ProductCategoryController@create');
-Route::post('/admin/users/update','Admin\ProductCategoryController@update');
 Route::group(['middleware' => ['roles:super_admin']], function() {
-
+  Route::get('/admin/users','Admin\UserController@index');
+  Route::post('/admin/users/create','Admin\UserController@create');
+  Route::post('/admin/users/update','Admin\UserController@update');
 });

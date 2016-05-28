@@ -256,12 +256,13 @@
                         </li>
                     </ul>
                 </li>
+                @if (Auth::check())
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <img class="nav-user-photo" src="{{asset('images/user.png')}}" alt="Jason's Photo">
                             <span class="user-info">
-                                <small>Welcome,</small>
-                                Jason
+                                <small>@lang('header.welcome'),</small>
+                                {{Auth::user()->name}}
                             </span>
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>
@@ -269,24 +270,25 @@
                         <li>
                             <a href="#">
                                 <i class="ace-icon fa fa-cog"></i>
-                                Settings
+                                @lang('header.setting')
                             </a>
                         </li>
                         <li>
                             <a href="profile.html">
                                 <i class="ace-icon fa fa-user"></i>
-                                Profile
+                                @lang('header.profile')
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#">
+                            <a href="{{url('/logout')}}">
                                 <i class="ace-icon fa fa-power-off"></i>
-                                Logout
+                                @lang('header.logout')
                             </a>
                         </li>
                     </ul>
                 </li>
+                @endif
             </ul>
         </div>
     </div><!-- /.navbar-container -->

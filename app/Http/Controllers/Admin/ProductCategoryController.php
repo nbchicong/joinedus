@@ -19,29 +19,38 @@
 namespace App\Http\Controllers\Admin;
 
 use App\ProductCategoryModel;
+use App\Data\BooleanDTO;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class ProductCategoryController extends Controller{
   protected function index() {
-    $category = ProductCategoryModel::paginate(0);
-    $title = 'Danh sách thể loại';
-    return view('admin.category.index', ['categoryList'=>$category, 'title'=>$title]);
+    return view('admin.category.index', array(
+        'categoryList' => ProductCategoryModel::paginate(0),
+        'title'=>'Danh sách thể loại')
+    );
+  }
+  protected function listCate() {
+//    $dto = new ListDTO(ProductCategoryModel::paginate(0));
+    return response()->json(ProductCategoryModel::paginate(0));
   }
   protected function create(Request $request) {
     $cate = new ProductCategoryModel();
     $cate = $cate->create($request->all());
-    return response()->json(array('success'=>isset($cate->id)));
+    $dto = new BooleanDTO(isset($cate->id));
+    return response()->json($dto->output());
   }
   protected function update(Request $request) {
     $cate = new ProductCategoryModel();
     $cate = $cate->find($request->id);
-    return response()->json(array('success'=>$cate->save($request->all())));
+    $dto = new BooleanDTO($cate->save($request->all()));
+    return response()->json($dto->output());
   }
-  protected function delete($cateId) {
+  protected function delete(Request $request) {
     $cate = new ProductCategoryModel();
-    $cate = $cate->find($cateId);
-    return response()->json(array('success'=>$cate->delete()));
+    $cate = $cate->find($request->input('id'));
+    $dto = new BooleanDTO($cate->delete());
+    return response()->json($dto->output());
   }
 }

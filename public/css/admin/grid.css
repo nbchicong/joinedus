@@ -308,6 +308,10 @@ input.grid-page {
         display: none !important;
     }
 }
+.datagrid .btn {
+    border: 0;
+    padding: 5px 12px;
+}
 .nopadding {
     padding: 0px !important;
 }

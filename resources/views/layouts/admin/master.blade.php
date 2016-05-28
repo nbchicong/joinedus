@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{asset('css/admin/ace-ie.min.css')}}" />
     <![endif]-->
     <link rel="stylesheet" href="{{asset('css/admin/style.css')}}" />
+    @yield('style')
     <script type="text/javascript" src="{{asset('js/admin/ace-extra.min.js')}}"></script>
 </head>
 <body class="no-skin">
@@ -34,7 +35,7 @@
 <script src="{{asset('js/admin/ace.min.js')}}"></script>
 <script src="{{asset('js/libs/base.min.js')}}"></script>
 <script src="{{asset('js/libs/hashtable.min.js')}}"></script>
-<script src="{{asset('js/libs/components/notify.min.js')}}"></script>
+<script src="{{asset('js/libs/components/dialog.min.js')}}"></script>
 <script src="{{asset('js/libs/class/entity.min.js')}}"></script>
 @yield('script')
 </body>

@@ -28,4 +28,13 @@ class User extends Authenticatable
         $role = $this->role;
         return $role == 'super_admin';
     }
+
+    public function isAdmin() {
+        $role = $this->role;
+        return $role == 'admin';
+    }
+
+    public function hasRole($role) {
+        return (strpos($this->role, $role) != FALSE);
+    }
 }

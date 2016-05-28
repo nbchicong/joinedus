@@ -17,13 +17,16 @@
 
 namespace App\Http\Controllers\Web;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\ProductCategoryModel;
 
-class HomeController extends Controller{
+class HomeController extends Controller {
 
-  public function index() {
+  public function index($lang='vi') {
+    App::setLocale($lang);
     $category = ProductCategoryModel::paginate(0);
     return view('home', array('page' => 'home', 'categoryList' => $category));
   }
@@ -61,6 +64,7 @@ class HomeController extends Controller{
   }
 
   public function logout() {
+    Auth::logout();
     return view('login', array('page' => 'home'));
   }
 

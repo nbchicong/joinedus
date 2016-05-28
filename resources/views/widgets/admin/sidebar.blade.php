@@ -7,21 +7,21 @@
         <div class="nav-wrap" style="max-height: 334px;">
             <div style="position: relative; top: 0px; transition-property: top; transition-duration: 0.15s;">
                 <ul class="nav nav-list" style="top: 0px;">
-                    <li class="active">
+                    <li id="menu-users-entity" class="active">
                         <a href="{{url('admin/users')}}">
                             <i class="menu-icon fa fa-user"></i>
                             <span class="menu-text"> Người dùng </span>
                         </a>
                         <b class="arrow"></b>
                     </li>
-                    <li class="">
+                    <li id="menu-category-entity" class="">
                         <a href="{{url('admin/product/category')}}">
                             <i class="menu-icon fa fa-list"></i>
-                            <span class="menu-text"> Danh mục sản phẩm </span>
+                            <span class="menu-text"> Loại sản phẩm </span>
                         </a>
                         <b class="arrow"></b>
                     </li>
-                    <li class="">
+                    <li id="menu-product-entity" class="">
                         <a href="{{url('admin/product')}}">
                             <i class="menu-icon fa fa-tag"></i>
                             <span class="menu-text"> Sản phẩm </span>

@@ -1,109 +1,29 @@
-<h2>Category</h2>
+<h2>Danh mục</h2>
 <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+    {{trans('auth.failed')}}
+    @foreach($categoryList as $cate)
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                    Sportswear
+                <a @if(!empty($cate->childrens))data-toggle="collapse" data-parent="#accordian"@endif href="@if(!empty($cate->childrens))#product-cate-{{$cate->id}}@else{{url('products/categories')}}/{{$cate->id}}@endif">
+                    @if(!empty($cate->childrens))<span class="badge pull-right"><i class="fa fa-plus"></i></span>@endif
+                    {{$cate->name}}
                 </a>
             </h4>
         </div>
-        <div id="sportswear" class="panel-collapse collapse">
+        @if(!empty($cate->childrens)||isset($cate->childrens))
+        <div id="product-cate-{{$cate->id}}" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul>
-                    <li><a href="{{url('products/brands/nike/sportswear')}}">Nike </a></li>
-                    <li><a href="{{url('products/brands/under-armour/sportswear')}}">Under Armour </a></li>
-                    <li><a href="{{url('products/brands/adidas/sportswear')}}">Adidas </a></li>
-                    <li><a href="{{url('products/brands/puma/sportswear')}}">Puma</a></li>
-                    <li><a href="{{url('products/brands/asics/sportswear')}}">ASICS </a></li>
+                    @foreach($cate->childrens as $child)
+                    <li><a href="{{url('products/categories')}}/{{$child->parentCateId}}/{{$child->id}}">{{$child->name}} </a></li>
+                    @endforeach
                 </ul>
             </div>
         </div>
+        @endif
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                    Mens
-                </a>
-            </h4>
-        </div>
-        <div id="mens" class="panel-collapse collapse">
-            <div class="panel-body">
-                <ul>
-                    <li><a href="{{url('products/brands/fendi/mens')}}">Fendi</a></li>
-                    <li><a href="{{url('products/brands/guess/mens')}}">Guess</a></li>
-                    <li><a href="{{url('products/brands/valentino/mens')}}">Valentino</a></li>
-                    <li><a href="{{url('products/brands/dior/mens')}}">Dior</a></li>
-                    <li><a href="{{url('products/brands/versace/mens')}}">Versace</a></li>
-                    <li><a href="{{url('products/brands/armani/mens')}}">Armani</a></li>
-                    <li><a href="{{url('products/brands/prada/mens')}}">Prada</a></li>
-                    <li><a href="{{url('products/brands/nike/mens')}}dole-and-gabbana">Dolce and Gabbana</a></li>
-                    <li><a href="{{url('products/brands/chanel/mens')}}">Chanel</a></li>
-                    <li><a href="{{url('products/brands/gucci/mens')}}">Gucci</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordian" href="#womens">
-                    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                    Womens
-                </a>
-            </h4>
-        </div>
-        <div id="womens" class="panel-collapse collapse">
-            <div class="panel-body">
-                <ul>
-                    <li><a href="{{url('products/brands/fendi/womens')}}">Fendi</a></li>
-                    <li><a href="{{url('products/brands/guess/womens')}}">Guess</a></li>
-                    <li><a href="{{url('products/brands/valentino/womens')}}">Valentino</a></li>
-                    <li><a href="{{url('products/brands/dior/womens')}}">Dior</a></li>
-                    <li><a href="{{url('products/brands/versace/womens')}}">Versace</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title"><a href="{{url('products/categories/kids')}}">Kids</a></h4>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title"><a href="{{url('products/categories/fashion')}}">Fashion</a></h4>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title"><a href="{{url('products/categories/households')}}">Households</a></h4>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title"><a href="{{url('products/categories/interiors')}}">Interiors</a></h4>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title"><a href="{{url('products/categories/clothing')}}">Clothing</a></h4>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title"><a href="{{url('products/categories/bags')}}">Bags</a></h4>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title"><a href="{{url('products/categories/shoes')}}">Shoes</a></h4>
-        </div>
-    </div>
+    @endforeach
 </div><!--/category-products-->
 
 <div class="brands_products"><!--brands_products-->
