@@ -7,7 +7,7 @@
         <div class="nav-wrap" style="max-height: 334px;">
             <div style="position: relative; top: 0px; transition-property: top; transition-duration: 0.15s;">
                 <ul class="nav nav-list" style="top: 0px;">
-                    <li id="menu-users-entity" class="active">
+                    <li id="menu-users-entity" class="">
                         <a href="{{url('admin/users')}}">
                             <i class="menu-icon fa fa-user"></i>
                             <span class="menu-text"> Người dùng </span>

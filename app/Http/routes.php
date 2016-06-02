@@ -12,8 +12,8 @@
 */
 
 // WEB E-SHOPPER
-Route::get('/{lang?}','Web\HomeController@index');
-Route::get('/{lang?}/index', 'Web\HomeController@index');
+Route::get('/','Web\HomeController@index');
+Route::get('/index', 'Web\HomeController@index');
 Route::get('/products','Web\HomeController@products');
 Route::get('/products/details/{id}','Web\HomeController@productDetails');
 Route::get('/products/categories/{name}','Web\HomeController@productCategories');
