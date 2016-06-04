@@ -25,16 +25,31 @@ class User extends Authenticatable
     ];
 
     public function isSuperAdmin() {
-        $role = $this->role;
-        return $role == 'super_admin';
+        return strtoupper($this->role) == 'SUPER_ADMIN';
     }
 
     public function isAdmin() {
-        $role = $this->role;
-        return $role == 'admin';
+        return strtoupper($this->role) == 'ADMIN';
+    }
+
+    public function isWriter() {
+        return strtoupper($this->role) == 'WRITER';
+    }
+
+    public function isUser() {
+        return strtoupper($this->role) == 'USER';
     }
 
     public function hasRole($role) {
-        return (strpos($this->role, $role) != FALSE);
+        if (strtoupper($role) == 'SUPER_ADMIN') {
+            return $this->isSuperAdmin();
+        }
+        if (strtoupper($role) == 'ADMIN') {
+            return ($this->isSuperAdmin() || $this->isAdmin());
+        }
+        if (strtoupper($role) == 'WRITER') {
+            return ($this->isSuperAdmin() || $this->isAdmin() || $this->isWriter());
+        }
+        return $this->role == $role;
     }
 }

@@ -26,10 +26,7 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller {
   protected function index() {
-    return view('admin.user.index', array(
-            'categoryList' => User::paginate(0),
-            'title'=>'Danh sách người dùng')
-    );
+    return view('admin.user', array('title'=>'Danh sách người dùng'));
   }
   protected function listUser() {
 //    $dto = new ListDTO(ProductCategoryModel::paginate(0));

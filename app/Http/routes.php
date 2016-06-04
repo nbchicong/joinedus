@@ -49,6 +49,8 @@ Route::group(['middleware' => ['roles:admin']], function() {
 });
 Route::group(['middleware' => ['roles:super_admin']], function() {
   Route::get('/admin/users','Admin\UserController@index');
+  Route::get('/admin/users/list','Admin\UserController@listUser');
   Route::post('/admin/users/create','Admin\UserController@create');
   Route::post('/admin/users/update','Admin\UserController@update');
+  Route::post('/admin/users/remove','Admin\UserController@delete');
 });

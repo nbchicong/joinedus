@@ -26,7 +26,7 @@ use App\Http\Controllers\Controller;
 
 class ProductCategoryController extends Controller{
   protected function index() {
-    return view('admin.category.index', array(
+    return view('admin.category', array(
         'categoryList' => ProductCategoryModel::paginate(0),
         'title'=>'Danh sách thể loại')
     );
