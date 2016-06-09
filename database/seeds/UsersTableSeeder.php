@@ -15,12 +15,14 @@
  * Class UserTableSeeder
  */
 use Illuminate\Database\Seeder;
+use App\User;
 
 class UsersTableSeeder extends Seeder{
   public function run() {
     User::create(array(
         'name'     => 'Nguyễn Bá Chí Công',
         'email'    => 'nbchicong@gmail.com',
+        'role'    => 'SUPER_ADMIN',
         'password' => Hash::make('nbchicong1311'),
     ));
   }

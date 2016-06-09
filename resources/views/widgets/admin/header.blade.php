@@ -268,13 +268,7 @@
                     </a>
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                            <a href="#">
-                                <i class="ace-icon fa fa-cog"></i>
-                                @lang('header.setting')
-                            </a>
-                        </li>
-                        <li>
-                            <a href="profile.html">
+                            <a href="{{url('/users/profile')}}">
                                 <i class="ace-icon fa fa-user"></i>
                                 @lang('header.profile')
                             </a>

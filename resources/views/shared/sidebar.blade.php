@@ -1,6 +1,6 @@
 <h2>Danh mục</h2>
 <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-    {{trans('auth.failed')}}
+    {{--{{trans('auth.failed')}}--}}
     @foreach($categoryList as $cate)
     <div class="panel panel-default">
         <div class="panel-heading">

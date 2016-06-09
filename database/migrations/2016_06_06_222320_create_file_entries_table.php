@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductCategoryTable extends Migration
+class CreateFileEntriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreateProductCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_category', function (Blueprint $table) {
+        Schema::create('file_store', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id')->unique();
-            $table->string('name');
-            $table->string('parentCateId');
+            $table->string('code');
+            $table->string('filename');
+            $table->string('mimetype');
+            $table->string('original_filename');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateProductCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('product_category');
+        Schema::drop('file_store');
     }
 }

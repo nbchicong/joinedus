@@ -33,21 +33,31 @@ class UserController extends Controller {
     return response()->json(User::paginate(0));
   }
   protected function create(Request $request) {
-    $user = new User();
-    $user = $user->create($request->all());
+    $user = User::create($request->all());
     $dto = new BooleanDTO(isset($user->id));
     return response()->json($dto->output());
   }
   protected function update(Request $request) {
-    $user = new User();
-    $user = $user->find($request->id);
-    $dto = new BooleanDTO($user->save($request->all()));
+    $userId = $request->input('id');
+    $userItem = User::find($userId);
+    if ($userItem && $request->user()->hasRole('SUPER_ADMIN')) {
+      $userItem->name = $request->input('name');
+      $userItem->email = $request->input('email');
+      $userItem->role = $request->input('role');
+      $dto = new BooleanDTO($userItem->save());
+      return response()->json($dto->output());
+    }
+    $dto = new BooleanDTO(false);
     return response()->json($dto->output());
   }
   protected function delete(Request $request) {
-    $user = new User();
-    $user = $user->find($request->input('id'));
-    $dto = new BooleanDTO($user->delete());
+    $userId = $request->input('id');
+    $userItem = User::find($userId);
+    if ($userItem && $request->user()->hasRole('SUPER_ADMIN')) {
+      $dto = new BooleanDTO($userItem->delete());
+      return response()->json($dto->output());
+    }
+    $dto = new BooleanDTO(false);
     return response()->json($dto->output());
   }
 }

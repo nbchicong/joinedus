@@ -30,15 +30,22 @@ Route::get('/search/{query}','Web\HomeController@search');
 Route::post('/auth/login','Auth\AuthController@login');
 Route::post('/auth/register','Auth\AuthController@create');
 
-Route::get('blade', function () {
-  $drinks = array('Vodka','Gin','Brandy');
-  return view('page',array('name' => 'The Raven','day' => 'Friday','drinks' => $drinks));
-});
-
 // ADMIN
 
 Route::get('/admin', function () {
   return view('admin.home');
+});
+
+Route::get('/file/get/{code}', ['as' => 'getfile', 'uses' => 'FileEntryController@get']);
+Route::group(['middleware' => ['roles:writer']], function() {
+  Route::post('/admin/file/add','Admin\FileEntryController@add');
+  Route::get('/admin/file/list','Admin\FileEntryController@listFile');
+
+  Route::get('/admin/product','Admin\ProductController@index');
+  Route::get('/admin/product/list','Admin\ProductController@listItems');
+  Route::post('/admin/product/create','Admin\ProductController@create');
+  Route::post('/admin/product/update','Admin\ProductController@update');
+  Route::post('/admin/product/remove','Admin\ProductController@delete');
 });
 Route::group(['middleware' => ['roles:admin']], function() {
   Route::get('/admin/product/category','Admin\ProductCategoryController@index');
@@ -46,6 +53,12 @@ Route::group(['middleware' => ['roles:admin']], function() {
   Route::post('/admin/product/category/create','Admin\ProductCategoryController@create');
   Route::post('/admin/product/category/update','Admin\ProductCategoryController@update');
   Route::post('/admin/product/category/remove','Admin\ProductCategoryController@delete');
+
+  Route::get('/admin/product/brand','Admin\BrandController@index');
+  Route::get('/admin/product/brand/list','Admin\BrandController@listCate');
+  Route::post('/admin/product/brand/create','Admin\BrandController@create');
+  Route::post('/admin/product/brand/update','Admin\BrandController@update');
+  Route::post('/admin/product/brand/remove','Admin\BrandController@delete');
 });
 Route::group(['middleware' => ['roles:super_admin']], function() {
   Route::get('/admin/users','Admin\UserController@index');

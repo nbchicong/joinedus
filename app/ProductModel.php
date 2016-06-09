@@ -25,6 +25,8 @@ class ProductModel extends BaseModel {
       'code',
       'category_id',
       'brand_id',
+      'image_codes',
+      'image_paths',
       'quantity',
       'availability',
       'price',
