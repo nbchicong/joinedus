@@ -16,16 +16,18 @@ class CreateProductTable extends Migration {
             $table->increments('id')->unique();
             $table->string('name');
             $table->string('code');
-            $table->string('category_id')->references('id')->on('product_category');
-            $table->string('brand_id')->references('id')->on('product_brands');
-            $table->text('image_codes');
-            $table->text('image_paths');
-            $table->integer('quantity');
-            $table->string('availability')->nullable();
+            $table->string('categoryId')->references('id')->on('product_category');
+            $table->string('brandId')->references('id')->on('product_brands');
+            $table->text('imageCodes');
+            $table->text('imagePaths');
             $table->string('price');
-            $table->text('details')->nullable();
+            $table->integer('quantity');
+            $table->boolean('availability')->nullable();
+            $table->boolean('promotions')->nullable();
+            $table->string('discount')->nullable();
             $table->string('tags')->nullable();
             $table->float('rating')->nullable();
+            $table->text('details')->nullable();
             $table->timestamps();
         });
     }

@@ -7,8 +7,11 @@
 @endsection
 @section('content')
     <div class="toolbar breadcrumbs ace-save-state breadcrumbs-fixed">
-        <button id="btn-add" class="btn btn-primary btn-sm"><!-- data-toggle="modal" data-target="#modal-category"-->
+        <button id="btn-add" class="btn btn-primary btn-sm">
             <i class="fa fa-plus"></i> Tạo mới
+        </button>
+        <button id="btn-save" class="btn btn-primary btn-sm" style="display:none">
+            <i class="fa fa-save"></i> Lưu
         </button>
     </div>
     <div class="page-content">
@@ -30,7 +33,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-category">Loại sản phẩm</label>
                         <div class="col-sm-5">
-                            <select id="txt-category" name="categoryId" class="form-control">
+                            <select id="cbb-category" name="categoryId" class="form-control">
                                 @if(count($categoryList) > 0)
                                     @foreach($categoryList as $cate)
                                 <option value="{{$cate->id}}">{{$cate->name}}</option>
@@ -40,7 +43,7 @@
                         </div>
                         <label class="col-sm-2 control-label no-padding-right" for="txt-brand">Nhà sản xuất</label>
                         <div class="col-sm-3">
-                            <select id="txt-brand" name="brandId" class="form-control">
+                            <select id="cbb-brand" name="brandId" class="form-control">
                                 @if(count($brandList) > 0)
                                     @foreach($brandList as $brand)
                                         <option value="{{$brand->id}}">{{$brand->name}}</option>
@@ -61,7 +64,7 @@
                         <label class="col-sm-2 control-label no-padding-right" for="txt-availability">Trạng thái bán</label>
                         <div class="col-sm-2">
                             <label>
-                                <input id="txt-availability" name="availability" class="ace ace-switch ace-switch-6" type="checkbox">
+                                <input id="cbx-availability" name="availability" class="ace ace-switch ace-switch-6" type="checkbox">
                                 <span class="lbl"></span>
                             </label>
                         </div>
@@ -69,8 +72,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-promotions">Khuyến mãi</label>
                         <div class="col-sm-2">
-                            <label>
-                                <input id="txt-promotions" name="promotions" class="ace ace-switch ace-switch-6" type="checkbox">
+                            <label>;l
+                                <input id="cbx-promotions" name="promotions" class="ace ace-switch ace-switch-6" type="checkbox">
                                 <span class="lbl"></span>
                             </label>
                         </div>
