@@ -10,7 +10,7 @@
         <button id="btn-add" class="btn btn-primary btn-sm">
             <i class="fa fa-plus"></i> Tạo mới
         </button>
-        <button id="btn-save" class="btn btn-primary btn-sm" style="display:none">
+        <button id="btn-save" class="btn btn-primary btn-sm" data-action="save" style="display:none">
             <i class="fa fa-save"></i> Lưu
         </button>
     </div>

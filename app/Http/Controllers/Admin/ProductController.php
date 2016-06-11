@@ -35,6 +35,10 @@ class ProductController extends Controller {
         'brandList' => BrandModel::paginate(0)
     ));
   }
+
+  protected function load($id) {
+    return response()->json(ProductModel::find($id));
+  }
   protected function listItems() {
     return response()->json(ProductModel::paginate(0));
   }
