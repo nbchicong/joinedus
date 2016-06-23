@@ -18,7 +18,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-
+use Log;
 use App\BrandModel;
 use App\ProductCategoryModel;
 use App\ProductModel;
@@ -36,19 +36,22 @@ class ProductController extends Controller {
     ));
   }
 
-  protected function load($id) {
+  protected function load(Request $request) {
+    $id = $request->input('id');
     return response()->json(ProductModel::find($id));
   }
   protected function listItems() {
     return response()->json(ProductModel::paginate(0));
   }
   protected function create(Request $request) {
+    Log::debug('Request');
+    Log::debug($request);
     $fileStore = new FileEntryController();
     $product = new ProductModel();
-    $product->name = $request->input('name');
+    $product->name = $request->input('product_name');
     $product->code = $request->input('code');
-    $product->category_id = $request->input('categoryId');
-    $product->brand_id = $request->input('brandId');
+    $product->categoryId = $request->input('categoryId');
+    $product->brandId = $request->input('brandId');
     $product->quantity = $request->input('quantity');
     $product->availability = $request->input('availability');
     $product->price = $request->input('price');
@@ -57,10 +60,10 @@ class ProductController extends Controller {
     $product->details = $request->input('details');
     $product->tags = $request->input('tags');
     $product->rating = 0;
-    $file = $fileStore->saveToLocal($request);
+    $file = $fileStore->saveToLocal();
     if (isset($file->code)) {
-      $product->image_codes = $file->code;
-      $product->image_paths = $file->mimetype;
+      $product->imageCodes = $file->code;
+      $product->imagePaths = $file->mimetype;
     }
     $dto = new BooleanDTO($product->save());
     return response()->json($dto->output());
@@ -70,7 +73,7 @@ class ProductController extends Controller {
     $product = ProductModel::find($itemId);
     if ($product && $request->user()->hasRole('ADMIN')) {
       $fileStore = new FileEntryController();
-      $product->name = $request->input('name');
+      $product->name = $request->input('product_name');
       $product->code = $request->input('code');
       $product->category_id = $request->input('categoryId');
       $product->brand_id = $request->input('brandId');
@@ -81,7 +84,7 @@ class ProductController extends Controller {
       $product->discount = $request->input('discount');
       $product->details = $request->input('details');
       $product->tags = $request->input('tags');
-      $file = $fileStore->saveToLocal($request);
+      $file = $fileStore->saveToLocal();
       if (isset($file->code) && !is_null($file) && !empty($file)) {
         $product->image_codes = $file->code;
         $product->image_paths = $file->mimetype;

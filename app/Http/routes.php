@@ -43,6 +43,7 @@ Route::group(['middleware' => ['roles:writer']], function() {
 
   Route::get('/admin/product','Admin\ProductController@index');
   Route::get('/admin/product/list','Admin\ProductController@listItems');
+  Route::get('/admin/product/load','Admin\ProductController@load');
   Route::post('/admin/product/create','Admin\ProductController@create');
   Route::post('/admin/product/update','Admin\ProductController@update');
   Route::post('/admin/product/remove','Admin\ProductController@delete');

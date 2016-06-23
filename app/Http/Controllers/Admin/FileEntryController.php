@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\FileEntry;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 
 class FileEntryController extends Controller {
   private function generateUuid() {
@@ -25,11 +27,10 @@ class FileEntryController extends Controller {
   }
 
   /**
-   * @param Request $request
    * @return FileEntry|null
    */
-  public function saveToLocal(Request $request) {
-    $file = $request->file('fileUpload');
+  public function saveToLocal() {
+    $file = Input::file('fileUpload');
     if ($file) {
       $extension = $file->getClientOriginalExtension();
       $uuid = $this->generateUuid();

@@ -7,6 +7,9 @@
 @endsection
 @section('content')
     <div class="toolbar breadcrumbs ace-save-state breadcrumbs-fixed">
+        <button id="btn-back" class="btn btn-primary btn-sm" style="display:none">
+            <i class="fa fa-arrow-left"></i> Quay lại
+        </button>
         <button id="btn-add" class="btn btn-primary btn-sm">
             <i class="fa fa-plus"></i> Tạo mới
         </button>
@@ -23,7 +26,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-name">Tên sản phẩm</label>
                         <div class="col-sm-5">
-                            <input type="text" id="txt-name" name="name" placeholder="Tên sản phẩm" class="form-control">
+                            <input type="text" id="txt-name" name="product_name" placeholder="Tên sản phẩm" class="form-control">
                         </div>
                         <label class="col-sm-2 control-label no-padding-right" for="txt-code">Mã sản phẩm</label>
                         <div class="col-sm-3">
@@ -72,7 +75,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-promotions">Khuyến mãi</label>
                         <div class="col-sm-2">
-                            <label>;l
+                            <label>
                                 <input id="cbx-promotions" name="promotions" class="ace ace-switch ace-switch-6" type="checkbox">
                                 <span class="lbl"></span>
                             </label>
@@ -86,6 +89,13 @@
                             <input type="text" id="txt-tags" name="tags" placeholder="Tags" class="form-control">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="txt-tags">Hình sản phẩm</label>
+                        <div class="col-sm-2">
+                            <input type="file" id="file-image" name="fileUpload" class="form-control">
+                        </div>
+                    </div>
+                    <input type="hidden" id="txt-id" name="id" value="" />
                 </form>
             </div>
             <!-- PAGE CONTENT ENDS -->
@@ -93,7 +103,8 @@
     </div><!-- /.page-content -->
 @endsection
 @section('script')
+    <script src="{{asset('js/jquery/plugin/jquery.form.min.js')}}"></script>
     <script src="{{asset('js/libs/components/grid.min.js')}}"></script>
     <script src="{{asset('js/libs/components/grid-columns.min.js')}}"></script>
-    <script src="{{asset('js/admin/libs/brand-entity.min.js')}}"></script>
+    <script src="{{asset('js/admin/libs/product-entity.min.js')}}"></script>
 @endsection
