@@ -75,8 +75,8 @@ class ProductController extends Controller {
       $fileStore = new FileEntryController();
       $product->name = $request->input('product_name');
       $product->code = $request->input('code');
-      $product->category_id = $request->input('categoryId');
-      $product->brand_id = $request->input('brandId');
+      $product->categoryId = $request->input('categoryId');
+      $product->brandId = $request->input('brandId');
       $product->quantity = $request->input('quantity');
       $product->availability = $request->input('availability');
       $product->price = $request->input('price');

@@ -36,7 +36,7 @@ Route::get('/admin', function () {
   return view('admin.home');
 });
 
-Route::get('/file/get/{code}', ['as' => 'getfile', 'uses' => 'FileEntryController@get']);
+Route::get('/file/get/{code}', ['as' => 'getFile', 'uses' => 'FileEntryController@get']);
 Route::group(['middleware' => ['roles:writer']], function() {
   Route::post('/admin/file/add','Admin\FileEntryController@add');
   Route::get('/admin/file/list','Admin\FileEntryController@listFile');
@@ -47,6 +47,20 @@ Route::group(['middleware' => ['roles:writer']], function() {
   Route::post('/admin/product/create','Admin\ProductController@create');
   Route::post('/admin/product/update','Admin\ProductController@update');
   Route::post('/admin/product/remove','Admin\ProductController@delete');
+});
+Route::group(['middleware' => ['roles:writer']], function() {
+  Route::get('/admin/entry/category','Admin\EntryCategoryController@index');
+  Route::get('/admin/entry/category/list','Admin\EntryCategoryController@listItems');
+  Route::post('/admin/entry/category/create','Admin\EntryCategoryController@create');
+  Route::post('/admin/entry/category/update','Admin\EntryCategoryController@update');
+  Route::post('/admin/entry/category/remove','Admin\EntryCategoryController@delete');
+
+  Route::get('/admin/entry','Admin\EntryController@index');
+  Route::get('/admin/entry/list','Admin\EntryController@listItems');
+  Route::get('/admin/entry/load','Admin\EntryController@load');
+  Route::post('/admin/entry/create','Admin\EntryController@create');
+  Route::post('/admin/entry/update','Admin\EntryController@update');
+  Route::post('/admin/entry/remove','Admin\EntryController@delete');
 });
 Route::group(['middleware' => ['roles:admin']], function() {
   Route::get('/admin/product/category','Admin\ProductCategoryController@index');

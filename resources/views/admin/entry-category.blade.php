@@ -22,13 +22,13 @@
 @section('script')
     <script type="text/javascript">
         var listCate = [{id:'','name':'-----'}];
-        @if(count($categoryList) > 0)
-            @foreach($categoryList as $cate)
+        @if(count($cateList) > 0)
+            @foreach($cateList as $cate)
         listCate.push({id: '{{$cate->id}}', 'name': '{{$cate->name}}'});
             @endforeach
         @endif
     </script>
     <script src="{{asset('js/libs/components/grid.min.js')}}"></script>
     <script src="{{asset('js/libs/components/grid-columns.min.js')}}"></script>
-    <script src="{{asset('js/admin/libs/product-category-entity.min.js')}}"></script>
+    <script src="{{asset('js/admin/libs/entry-category-entity.min.js')}}"></script>
 @endsection

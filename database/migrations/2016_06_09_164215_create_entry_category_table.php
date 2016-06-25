@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostCategoryTable extends Migration
+class CreateEntryCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreatePostCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_category', function (Blueprint $table) {
+        Schema::create('entry_category', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id')->unique();
             $table->string('name');
@@ -28,6 +28,6 @@ class CreatePostCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('post_category');
+        Schema::drop('entry_category');
     }
 }

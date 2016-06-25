@@ -17,7 +17,7 @@
                     </li>
                     {{--@endif--}}
                     {{--@if(Auth::user()-hasRole('ADMIN'))--}}
-                    <li id="menu-category-entity" class="">
+                    <li id="menu-product-category" class="">
                         <a href="{{url('admin/product/category')}}">
                             <i class="menu-icon fa fa-list"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_product_category')</span>
@@ -40,15 +40,15 @@
                     </li>
                     {{--@endif--}}
                     {{--@if(Auth::user()-hasRole('WRITER'))--}}
-                    <li id="menu-post-entity" class="">
-                        <a href="{{url('admin/post/category')}}">
+                    <li id="menu-entry-category" class="">
+                        <a href="{{url('admin/entry/category')}}">
                             <i class="menu-icon fa fa-list"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_post_category')</span>
                         </a>
                         <b class="arrow"></b>
                     </li>
-                    <li id="menu-post" class="">
-                        <a href="{{url('admin/post')}}">
+                    <li id="menu-entry-entity" class="">
+                        <a href="{{url('admin/entry')}}">
                             <i class="menu-icon fa fa-file-o"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_post')</span>
                         </a>
