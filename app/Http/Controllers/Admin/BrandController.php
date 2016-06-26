@@ -20,6 +20,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\BrandModel;
 use App\Data\BooleanDTO;
+use App\Utils\StringUtils;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -31,18 +32,29 @@ class BrandController extends Controller{
   protected function listCate() {
     return response()->json(BrandModel::paginate(0));
   }
+
+  private function getModel(BrandModel $model, Request $request) {
+    $model->name = $request->input('name');
+    $model->code = StringUtils::replace2Code($model->name);
+    $model->intro = $request->input('intro');
+    return $model;
+  }
   protected function create(Request $request) {
-    $item = BrandModel::create($request->all());
-    $dto = new BooleanDTO(isset($item->id));
+    $item = new BrandModel();
+    $item = $this->getModel($item, $request);
+    $dto = new BooleanDTO($item->save());
     return response()->json($dto->output());
   }
   protected function update(Request $request) {
     $itemId = $request->input('id');
-    $item = BrandModel::find($itemId);
-    if ($item && $request->user()->hasRole('ADMIN')) {
-      $item->name = $request->input('name');
-      $item->intro = $request->input('intro');
-      $dto = new BooleanDTO($item->save());
+    if (!empty($itemId) && $request->user()->hasRole('ADMIN')) {
+      $item = BrandModel::find($itemId);
+      if ($item) {
+        $item = $this->getModel($item, $request);
+        $dto = new BooleanDTO($item->save());
+        return response()->json($dto->output());
+      }
+      $dto = new BooleanDTO(false);
       return response()->json($dto->output());
     }
     $dto = new BooleanDTO(false);
@@ -50,9 +62,13 @@ class BrandController extends Controller{
   }
   protected function delete(Request $request) {
     $itemId = $request->input('id');
-    $item = BrandModel::find($itemId);
-    if ($item && $request->user()->hasRole('ADMIN')) {
-      $dto = new BooleanDTO($item->delete());
+    if (!empty($itemId) && $request->user()->hasRole('ADMIN')) {
+      $item = BrandModel::find($itemId);
+      if ($item) {
+        $dto = new BooleanDTO($item->delete());
+        return response()->json($dto->output());
+      }
+      $dto = new BooleanDTO(false);
       return response()->json($dto->output());
     }
     $dto = new BooleanDTO(false);

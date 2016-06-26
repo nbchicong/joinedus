@@ -17,6 +17,9 @@
 
 namespace App\Http\Controllers\Web;
 
+use Log;
+use App\BrandModel;
+use App\ProductModel;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
@@ -27,24 +30,55 @@ class HomeController extends Controller {
 
   public function index($lang='vi') {
     App::setLocale($lang);
-    $category = ProductCategoryModel::paginate(0);
-    return view('home', array('page' => 'home', 'categoryList' => $category));
+    return view('home', array(
+        'page' => 'home',
+        'categoryList' => ProductCategoryModel::paginate(0),
+        'brandList' => BrandModel::paginate(0),
+        'featureProductList' => ProductModel::paginate(3)
+    ));
   }
 
   public function products() {
-    return view('products', array('page' => 'products'));
+    return view('products', array(
+        'page' => 'products',
+        'categoryList' => ProductCategoryModel::paginate(0),
+        'brandList' => BrandModel::paginate(0),
+        'productList' => ProductModel::paginate(0)
+    ));
   }
 
-  public function productDetails($id) {
-    return view('product_details', array('page' => 'products'));
+  public function productDetails($code) {
+    $product = ProductModel::where('code', $code)->first();
+    if (!$product) {
+      $product = new ProductModel();
+    }
+    return view('product_details', array(
+        'page' => 'products',
+        'categoryList' => ProductCategoryModel::paginate(0),
+        'brandList' => BrandModel::paginate(0),
+        'productDetail' => $product
+    ));
   }
 
-  public function productCategories($name) {
-    return view('products', array('page' => 'products'));
+  public function productCategories($parentId, $code) {
+    $cate = ProductCategoryModel::where('code', $code)->first();
+    return view('products', array(
+        'page' => 'products',
+        'categoryList' => ProductCategoryModel::paginate(0),
+        'brandList' => BrandModel::paginate(0),
+        'productList' => ProductModel::where('categoryId', $cate->id)->get()
+    ));
   }
 
-  public function productBrands($name, $category = null) {
-    return view('products', array('page' => 'products'));
+  public function productBrands($brandCode) {
+    $cate = BrandModel::where('code', $brandCode)->first();
+    Log::debug($cate);
+    return view('products', array(
+        'page' => 'products',
+        'categoryList' => ProductCategoryModel::paginate(0),
+        'brandList' => BrandModel::paginate(0),
+        'productList' => ProductModel::where('brandId', $cate->id)->get()
+    ));
   }
 
   public function blog() {

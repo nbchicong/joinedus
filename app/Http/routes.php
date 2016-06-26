@@ -15,11 +15,11 @@
 Route::get('/','Web\HomeController@index');
 Route::get('/index', 'Web\HomeController@index');
 Route::get('/products','Web\HomeController@products');
-Route::get('/products/details/{id}','Web\HomeController@productDetails');
-Route::get('/products/categories/{name}','Web\HomeController@productCategories');
-Route::get('/products/brands/{name}/{category?}','Web\HomeController@productBrands');
+Route::get('/products/details/{code}','Web\HomeController@productDetails');
+Route::get('/products/categories/{?parentId}/{code}','Web\HomeController@productCategories');
+Route::get('/products/brands/{brandCode}','Web\HomeController@productBrands');
 Route::get('/blog','Web\HomeController@blog');
-Route::get('/blog/post/{id}','Web\HomeController@blogItem');
+Route::get('/blog/post/{code}','Web\HomeController@blogItem');
 Route::get('/contact-us','Web\HomeController@contactUs');
 Route::get('/login','Web\HomeController@login');
 Route::get('/logout','Web\HomeController@logout');

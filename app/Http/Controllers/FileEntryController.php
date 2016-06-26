@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
+use Log;
 use App\FileEntry;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
@@ -9,7 +10,6 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
 
 class FileEntryController extends Controller {
   private function generateUuid() {
@@ -39,7 +39,7 @@ class FileEntryController extends Controller {
       $entry->code = $uuid;
       $entry->mimetype = $file->getClientMimeType();
       $entry->original_filename = $file->getClientOriginalName();
-      $entry->filename = $file->getFilename() . '.' . $extension;
+      $entry->filename = $uuid . '.' . $extension;
       if ($entry->save())
         return $entry;
       return null;
@@ -53,8 +53,10 @@ class FileEntryController extends Controller {
 
   protected function get($code) {
     $entry = FileEntry::where('code', '=', $code)->firstOrFail();
-    $file = Storage::disk('local')->get($entry->code);
-    return (new Response($file, 200))->header('Content-Type', $entry->mime);
+    Log::debug('IMG Code');
+    Log::debug($entry->code.' - '. $entry->mimetype);
+    $file = Storage::disk('local')->get($entry->filename);
+    return new Response($file, 200, array('Content-type' => $entry->mimetype));
   }
 
 }

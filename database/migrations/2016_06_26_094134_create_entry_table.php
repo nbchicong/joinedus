@@ -16,6 +16,7 @@ class CreateEntryTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unique();
             $table->string('title');
+            $table->string('code');
             $table->string('cateId')->references('id')->on('entry_category');
             $table->string('author');
             $table->text('content');

@@ -15,6 +15,7 @@ class CreateBrandsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unique();
             $table->string('name');
+            $table->string('code');
             $table->text('intro')->nullable();
             $table->timestamps();
         });

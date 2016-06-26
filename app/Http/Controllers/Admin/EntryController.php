@@ -22,6 +22,8 @@ use Log;
 use App\Data\BooleanDTO;
 use App\EntryCategoryModel;
 use App\EntryModel;
+use App\Utils\StringUtils;
+use App\Http\Controllers\FileEntryController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -59,6 +61,7 @@ class EntryController extends Controller {
     Log::debug($request);
     $fileStore = new FileEntryController();
     $entry->title = $request->input('title');
+    $entry->code = StringUtils::replace2Code($entry->title);
     $entry->cateId = $request->input('cateId');
     $entry->author = $request->user()->name;
     $entry->content = $request->input('content');

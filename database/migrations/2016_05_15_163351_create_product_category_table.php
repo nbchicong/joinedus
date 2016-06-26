@@ -16,6 +16,7 @@ class CreateProductCategoryTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unique();
             $table->string('name');
+            $table->string('code');
             $table->string('parentCateId');
             $table->timestamps();
         });

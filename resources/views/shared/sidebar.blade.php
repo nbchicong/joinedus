@@ -5,7 +5,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a @if(!empty($cate->childrens))data-toggle="collapse" data-parent="#accordian"@endif href="@if(!empty($cate->childrens))#product-cate-{{$cate->id}}@else{{url('products/categories')}}/{{$cate->id}}@endif">
+                <a @if(!empty($cate->childrens))data-toggle="collapse" data-parent="#accordian"@endif href="@if(!empty($cate->childrens))#product-cate-{{$cate->id}}@else{{url('products/categories')}}/{{$cate->code}}@endif">
                     @if(!empty($cate->childrens))<span class="badge pull-right"><i class="fa fa-plus"></i></span>@endif
                     {{$cate->name}}
                 </a>
@@ -16,7 +16,7 @@
             <div class="panel-body">
                 <ul>
                     @foreach($cate->childrens as $child)
-                    <li><a href="{{url('products/categories')}}/{{$child->parentCateId}}/{{$child->id}}">{{$child->name}} </a></li>
+                    <li><a href="{{url('products/categories')}}/{{$child->parentCateId}}/{{$child->code}}">{{$child->name}} </a></li>
                     @endforeach
                 </ul>
             </div>
@@ -30,13 +30,9 @@
     <h2>Brands</h2>
     <div class="brands-name">
         <ul class="nav nav-pills nav-stacked">
-            <li><a href="{{url('products/brands/acne')}}"> <span class="pull-right">(50)</span>Acne</a></li>
-            <li><a href="{{url('products/brands/grune-erde')}}"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-            <li><a href="{{url('products/brands/albiro')}}"> <span class="pull-right">(27)</span>Albiro</a></li>
-            <li><a href="{{url('products/brands/ronhill')}}"> <span class="pull-right">(32)</span>Ronhill</a></li>
-            <li><a href="{{url('products/brands/oddmolly')}}"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-            <li><a href="{{url('products/brands/boudestijn')}}"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-            <li><a href="{{url('products/brands/rosch-creative-culture')}}"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+            @foreach($brandList as $brand)
+            <li><a href="{{url('products/brands')}}/{{$brand->code}}"> {{$brand->name}}</a></li>
+            @endforeach
         </ul>
     </div>
 </div><!--/brands_products-->

@@ -58,8 +58,8 @@
                     <div class="col-sm-7">
                         <div class="product-information"><!--/product-information-->
                             <img src="{{asset('images/product-details/new.jpg')}}" class="newarrival" alt="" />
-                            <h2>Anne Klein Sleeveless Colorblock Scuba</h2>
-                            <p>Web ID: 1089772</p>
+                            <h2>{{$productDetail->name}}</h2>
+                            <p>Product ID: {{$productDetail->code}}</p>
                             <img src="{{asset('images/product-details/rating.png')}}" alt="" />
                             <form method="GET" action="{{url('cart')}}">
                                 <span>

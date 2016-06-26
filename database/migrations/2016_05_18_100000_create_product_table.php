@@ -15,6 +15,7 @@ class CreateProductTable extends Migration {
             $table->engine = 'InnoDB';
             $table->increments('id')->unique();
             $table->string('name');
+            $table->string('nameCode');
             $table->string('code');
             $table->string('categoryId')->references('id')->on('product_category');
             $table->string('brandId')->references('id')->on('product_brands');
@@ -28,6 +29,7 @@ class CreateProductTable extends Migration {
             $table->string('tags')->nullable();
             $table->float('rating')->nullable();
             $table->text('details')->nullable();
+            $table->bigInteger('countView')->nullable();
             $table->timestamps();
         });
     }

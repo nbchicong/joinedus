@@ -22,6 +22,7 @@ namespace App\Http\Controllers\Admin;
 use App\Data\BooleanDTO;
 use App\EntryCategoryModel;
 use App\Http\Controllers\Controller;
+use App\Utils\StringUtils;
 use Illuminate\Http\Request;
 
 class EntryCategoryController extends Controller {
@@ -46,6 +47,7 @@ class EntryCategoryController extends Controller {
    */
   private function getModel(EntryCategoryModel $entry, Request $request) {
     $entry->name = $request->input('name');
+    $entry->code = StringUtils::replace2Code($entry->name);
     $entry->parentId = $request->input('parentId');
     return $entry;
   }

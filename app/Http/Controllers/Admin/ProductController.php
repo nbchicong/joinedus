@@ -23,8 +23,10 @@ use App\BrandModel;
 use App\ProductCategoryModel;
 use App\ProductModel;
 use App\Data\BooleanDTO;
+use App\Utils\StringUtils;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Controllers\FileEntryController;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller {
@@ -43,13 +45,13 @@ class ProductController extends Controller {
   protected function listItems() {
     return response()->json(ProductModel::paginate(0));
   }
-  protected function create(Request $request) {
+
+  protected function getModel(ProductModel $product, Request $request) {
     Log::debug('Request');
     Log::debug($request);
     $fileStore = new FileEntryController();
-    $product = new ProductModel();
     $product->name = $request->input('product_name');
-    $product->code = $request->input('code');
+    $product->code = StringUtils::replace2Code($product->name);
     $product->categoryId = $request->input('categoryId');
     $product->brandId = $request->input('brandId');
     $product->quantity = $request->input('quantity');
@@ -61,35 +63,29 @@ class ProductController extends Controller {
     $product->tags = $request->input('tags');
     $product->rating = 0;
     $file = $fileStore->saveToLocal();
-    if (isset($file->code)) {
+    if (isset($file->code) && !is_null($file) && !empty($file)) {
       $product->imageCodes = $file->code;
       $product->imagePaths = $file->mimetype;
     }
+    return $product;
+  }
+
+  protected function create(Request $request) {
+    $product = new ProductModel();
+    $product = $this->getModel($product, $request);
     $dto = new BooleanDTO($product->save());
     return response()->json($dto->output());
   }
   protected function update(Request $request) {
     $itemId = $request->input('id');
-    $product = ProductModel::find($itemId);
-    if ($product && $request->user()->hasRole('ADMIN')) {
-      $fileStore = new FileEntryController();
-      $product->name = $request->input('product_name');
-      $product->code = $request->input('code');
-      $product->categoryId = $request->input('categoryId');
-      $product->brandId = $request->input('brandId');
-      $product->quantity = $request->input('quantity');
-      $product->availability = $request->input('availability');
-      $product->price = $request->input('price');
-      $product->promotions = $request->input('promotions');
-      $product->discount = $request->input('discount');
-      $product->details = $request->input('details');
-      $product->tags = $request->input('tags');
-      $file = $fileStore->saveToLocal();
-      if (isset($file->code) && !is_null($file) && !empty($file)) {
-        $product->image_codes = $file->code;
-        $product->image_paths = $file->mimetype;
+    if (!empty($itemId) && $request->user()->hasRole('ADMIN')) {
+      $product = ProductModel::find($itemId);
+      if ($product) {
+        $product = $this->getModel($product, $request);
+        $dto = new BooleanDTO($product->save());
+        return response()->json($dto->output());
       }
-      $dto = new BooleanDTO($product->save());
+      $dto = new BooleanDTO(false);
       return response()->json($dto->output());
     }
     $dto = new BooleanDTO(false);
@@ -97,9 +93,13 @@ class ProductController extends Controller {
   }
   protected function delete(Request $request) {
     $itemId = $request->input('id');
-    $item = ProductModel::find($itemId);
-    if ($item && $request->user()->hasRole('ADMIN')) {
-      $dto = new BooleanDTO($item->delete());
+    if (!empty($itemId) && $request->user()->hasRole('ADMIN')) {
+      $item = ProductModel::find($itemId);
+      if ($item) {
+        $dto = new BooleanDTO($item->delete());
+        return response()->json($dto->output());
+      }
+      $dto = new BooleanDTO(false);
       return response()->json($dto->output());
     }
     $dto = new BooleanDTO(false);
