@@ -20,7 +20,7 @@
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{asset('images/product-details/1.jpg')}}" alt="" />
+                            <img src="{{url('file/get')}}/{{$productDetail->imageCodes}}" alt="" />
                             <h3>ZOOM</h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -61,20 +61,20 @@
                             <h2>{{$productDetail->name}}</h2>
                             <p>Product ID: {{$productDetail->code}}</p>
                             <img src="{{asset('images/product-details/rating.png')}}" alt="" />
-                            <form method="GET" action="{{url('cart')}}">
+                            <form method="POST" action="{{url('cart/add')}}">
                                 <span>
-                                    <span>US $59</span>
+                                    <span>{{$productDetail->price}}</span>
                                     <label>Quantity:</label>
-                                    <input type="text" value="3" id="quantity" name="quantity" />
+                                    <input type="text" value="1" id="quantity" name="quantity" />
                                     <button type="submit" class="btn btn-fefault cart">
                                         <i class="fa fa-shopping-cart"></i>
                                         Add to cart
                                     </button>
                                 </span>
                             </form>
-                            <p><b>Availability:</b> In Stock</p>
+                            <p><b>Availability:</b>@if($productDetail->avalability) In @else Out @endif Stock</p>
                             <p><b>Condition:</b> New</p>
-                            <p><b>Brand:</b> E-SHOPPER</p>
+                            <p><b>Brand:</b> {{$productDetail->brandId}}</p>
                             <a href=""><img src="{{asset('images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
                         </div><!--/product-information-->
                     </div>

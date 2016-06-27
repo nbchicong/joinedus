@@ -51,7 +51,8 @@ class ProductController extends Controller {
     Log::debug($request);
     $fileStore = new FileEntryController();
     $product->name = $request->input('product_name');
-    $product->code = StringUtils::replace2Code($product->name);
+    $product->nameCode = StringUtils::replace2Code($product->name);
+    $product->code = $request->input('code');
     $product->categoryId = $request->input('categoryId');
     $product->brandId = $request->input('brandId');
     $product->quantity = $request->input('quantity');

@@ -93,7 +93,7 @@
                                         <h2>{{$fProduct->price}}</h2>
                                         <p>{{$fProduct->name}}</p>
                                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                        <a href="{{url('products/details')}}/{{$fProduct->code}}" class="btn btn-default add-to-cart"><i class="fa fa-info"></i>View More</a>
+                                        <a href="{{url('products/details')}}/{{$fProduct->nameCode}}" class="btn btn-default add-to-cart"><i class="fa fa-info"></i>View More</a>
                                     </div>
                                 </div>
                             </div>
