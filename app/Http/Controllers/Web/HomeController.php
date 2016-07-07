@@ -48,7 +48,7 @@ class HomeController extends Controller {
   }
 
   public function productDetails($code) {
-    $product = ProductModel::where('code', $code)->first();
+    $product = ProductModel::where('nameCode', $code)->first();
     if (!$product) {
       $product = new ProductModel();
     }

@@ -28,19 +28,19 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <a href=""><img src="{{asset('images/product-details/similar1.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/product-details/similar2.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/product-details/similar3.jpg')}}" alt=""></a>
+                                    <a href=""><img src="{{url('file/get')}}/{{$productDetail->imageCodes}}" alt=""></a>
+                                    <a href=""><img src="{{url('file/get')}}/{{$productDetail->imageCodes}}" alt=""></a>
+                                    <a href=""><img src="{{url('file/get')}}/{{$productDetail->imageCodes}}" alt=""></a>
                                 </div>
                                 <div class="item">
-                                    <a href=""><img src="{{asset('images/product-details/similar1.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/product-details/similar2.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/product-details/similar3.jpg')}}" alt=""></a>
+                                    <a href=""><img src="{{url('file/get')}}/{{$productDetail->imageCodes}}" alt=""></a>
+                                    <a href=""><img src="{{url('file/get')}}/{{$productDetail->imageCodes}}" alt=""></a>
+                                    <a href=""><img src="{{url('file/get')}}/{{$productDetail->imageCodes}}" alt=""></a>
                                 </div>
                                 <div class="item">
-                                    <a href=""><img src="{{asset('images/product-details/similar1.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/product-details/similar2.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/product-details/similar3.jpg')}}" alt=""></a>
+                                    <a href=""><img src="{{url('file/get')}}/{{$productDetail->imageCodes}}" alt=""></a>
+                                    <a href=""><img src="{{url('file/get')}}/{{$productDetail->imageCodes}}" alt=""></a>
+                                    <a href=""><img src="{{url('file/get')}}/{{$productDetail->imageCodes}}" alt=""></a>
                                 </div>
 
                             </div>
