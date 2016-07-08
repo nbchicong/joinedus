@@ -40,6 +40,10 @@ class User extends Authenticatable
         return strtoupper($this->role) == 'USER';
     }
 
+    public function getUsername() {
+        return $this->email;
+    }
+
     public function hasRole($role) {
         if (strtoupper($role) == 'SUPER_ADMIN') {
             return $this->isSuperAdmin();
