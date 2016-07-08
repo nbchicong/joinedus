@@ -3,8 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SiteConfigTable extends Migration
-{
+class SiteConfigTable extends Migration {
     /**
      * Run the migrations.
      *
@@ -17,7 +16,7 @@ class SiteConfigTable extends Migration
             $table->string('siteName');
             $table->string('siteCode');
             $table->string('siteLogo');
-            $table->string('siteDescription');
+            $table->string('siteDescription')->nullable();
             $table->string('siteTitle');
             $table->string('author');
             $table->string('copyright');
