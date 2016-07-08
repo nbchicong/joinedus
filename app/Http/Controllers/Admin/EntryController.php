@@ -63,7 +63,7 @@ class EntryController extends Controller {
     $entry->title = $request->input('title');
     $entry->code = StringUtils::replace2Code($entry->title);
     $entry->cateId = $request->input('cateId');
-    $entry->author = $request->user()->name;
+    $entry->author = $request->user()->getUsername();
     $entry->content = $request->input('content');
     $entry->rating = $request->input('rating');
     $entry->tags = $request->input('tags');

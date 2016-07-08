@@ -41,7 +41,7 @@ class User extends Authenticatable
     }
 
     public function getUsername() {
-        return $this->email;
+        return $this->name;
     }
 
     public function hasRole($role) {

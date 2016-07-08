@@ -37,6 +37,7 @@ Route::get('/admin', function () {
 });
 
 Route::get('/file/get/{code}', ['as' => 'getFile', 'uses' => 'FileEntryController@get']);
+
 Route::group(['middleware' => ['roles:writer']], function() {
   Route::post('/admin/file/add','Admin\FileEntryController@add');
   Route::get('/admin/file/list','Admin\FileEntryController@listFile');
@@ -47,8 +48,7 @@ Route::group(['middleware' => ['roles:writer']], function() {
   Route::post('/admin/product/create','Admin\ProductController@create');
   Route::post('/admin/product/update','Admin\ProductController@update');
   Route::post('/admin/product/remove','Admin\ProductController@delete');
-});
-Route::group(['middleware' => ['roles:writer']], function() {
+
   Route::get('/admin/entry/category','Admin\EntryCategoryController@index');
   Route::get('/admin/entry/category/list','Admin\EntryCategoryController@listItems');
   Route::post('/admin/entry/category/create','Admin\EntryCategoryController@create');
@@ -61,6 +61,13 @@ Route::group(['middleware' => ['roles:writer']], function() {
   Route::post('/admin/entry/create','Admin\EntryController@create');
   Route::post('/admin/entry/update','Admin\EntryController@update');
   Route::post('/admin/entry/remove','Admin\EntryController@delete');
+
+  Route::get('/admin/page','Admin\PageContentController@index');
+  Route::get('/admin/page/list','Admin\PageContentController@listItems');
+  Route::get('/admin/page/load','Admin\PageContentController@load');
+  Route::post('/admin/page/create','Admin\PageContentController@create');
+  Route::post('/admin/page/update','Admin\PageContentController@update');
+  Route::post('/admin/page/remove','Admin\PageContentController@delete');
 });
 Route::group(['middleware' => ['roles:admin']], function() {
   Route::get('/admin/product/category','Admin\ProductCategoryController@index');
@@ -74,6 +81,9 @@ Route::group(['middleware' => ['roles:admin']], function() {
   Route::post('/admin/product/brand/create','Admin\BrandController@create');
   Route::post('/admin/product/brand/update','Admin\BrandController@update');
   Route::post('/admin/product/brand/remove','Admin\BrandController@delete');
+
+  Route::get('/admin/config','Admin\SiteConfigController@index');
+  Route::post('/admin/config/update','Admin\SiteConfigController@update');
 });
 Route::group(['middleware' => ['roles:super_admin']], function() {
   Route::get('/admin/users','Admin\UserController@index');

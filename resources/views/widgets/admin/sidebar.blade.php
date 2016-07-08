@@ -54,9 +54,16 @@
                         </a>
                         <b class="arrow"></b>
                     </li>
+                    <li id="menu-page-content" class="">
+                        <a href="{{url('admin/page')}}">
+                            <i class="menu-icon fa fa-file"></i>
+                            <span class="menu-text"> @lang('admin_sidebar.menu_page_content')</span>
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
                     {{--@endif--}}
                     {{--@if(Auth::user()-hasRole('ADMIN'))--}}
-                    <li id="menu-config" class="">
+                    <li id="menu-site-config" class="">
                         <a href="{{url('admin/config')}}">
                             <i class="menu-icon fa fa-cog"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_config')</span>

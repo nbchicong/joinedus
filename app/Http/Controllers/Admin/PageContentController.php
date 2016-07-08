@@ -27,7 +27,7 @@ use App\Http\Controllers\Controller;
 
 class PageContentController extends Controller{
   protected function index() {
-    return view('admin.page_content', array('title'=>'Danh sách trang nội dung'));
+    return view('admin.page-content', array('title'=>'Danh sách trang nội dung'));
   }
   /**
    * @param PageContentModel $model
@@ -37,7 +37,7 @@ class PageContentController extends Controller{
   private function getModel(PageContentModel $model, Request $request) {
     $model->title = $request->input('title');
     $model->code = StringUtils::replace2Code($model->name);
-    $model->author = $request->user()-getUsername();
+    $model->author = $request->user()->getUsername();
     $model->content = $request->input('content');
     $model->tags = $request->input('tags');
     return $model;

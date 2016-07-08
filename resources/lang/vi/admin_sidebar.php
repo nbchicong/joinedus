@@ -19,6 +19,7 @@ return [
     'menu_product' => 'Sản phẩm',
     'menu_post_category' => 'Loại bài viết',
     'menu_post' => 'Bài viết',
+    'menu_page_content' => 'Trang nội dung',
     'menu_config' => 'Cài đặt'
 
 ];

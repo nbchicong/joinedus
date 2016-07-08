@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Log;
+use App\Utils\StringUtils;
 use App\FileEntry;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
@@ -12,16 +13,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
 
 class FileEntryController extends Controller {
-  private function generateUuid() {
-    return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-        mt_rand( 0, 0xffff ),
-        mt_rand( 0, 0x0fff ) | 0x4000,
-        mt_rand( 0, 0x3fff ) | 0x8000,
-        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
-    );
-  }
-
   protected function listFile() {
     return response()->json(FileEntry::paginate(0));
   }
@@ -33,7 +24,7 @@ class FileEntryController extends Controller {
     $file = Input::file('fileUpload');
     if ($file) {
       $extension = $file->getClientOriginalExtension();
-      $uuid = $this->generateUuid();
+      $uuid = StringUtils::generateUuid();
       Storage::disk('local')->put($uuid . '.' . $extension, File::get($file));
       $entry = new FileEntry();
       $entry->code = $uuid;

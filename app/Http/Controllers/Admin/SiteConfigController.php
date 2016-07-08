@@ -18,35 +18,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Utils\StringUtils;
+use Log;
 use App\Data\BooleanDTO;
 use App\SiteConfigModel;
-use App\Utils\StringUtils;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class SiteConfigController extends Controller{
   protected function index() {
-    return view('admin.page_content', array('title'=>'Cấu hình site'));
-  }
-  /**
-   * @param SiteConfigModel $model
-   * @param Request $request
-   * @return \App\PageContentModel
-   */
-  private function getModel(SiteConfigModel $model, Request $request) {
-    $model->title = $request->input('title');
-    $model->code = StringUtils::replace2Code($model->name);
-    $model->author = $request->user()-getUsername();
-    $model->content = $request->input('content');
-    $model->tags = $request->input('tags');
-    return $model;
-  }
-  /**
-   * @return \Illuminate\Http\JsonResponse
-   */
-  protected function listItems() {
-    return response()->json(SiteConfigModel::paginate(0));
+    return view('admin.config', array('title'=>'Cấu hình site'));
   }
   /**
    * @param Request $request
@@ -60,45 +42,23 @@ class SiteConfigController extends Controller{
    * @param Request $request
    * @return \Illuminate\Http\JsonResponse
    */
-  protected function create(Request $request) {
-    $item = new SiteConfigModel();
-    $item = $this->getModel($item, $request);
-    $dto = new BooleanDTO($item->save());
-    return response()->json($dto->output());
-  }
-  /**
-   * @param Request $request
-   * @return \Illuminate\Http\JsonResponse
-   */
   protected function update(Request $request) {
-    $itemId = $request->input('id');
-    if (!empty($itemId) && $request->user()->hasRole('WRITER')) {
-      $item = SiteConfigModel::find($itemId);
+    $item = SiteConfigModel::first();
+    Log::debug("Request");
+    Log::debug($request);
+    Log::debug("First item config");
+    Log::debug($item);
+    if ($request->user()->hasRole('ADMIN')) {
+      $input = $request->all();
       if ($item) {
-        $item = $this->getModel($item, $request);
-        $dto = new BooleanDTO($item->save());
+        $dto = new BooleanDTO($item->update($input));
         return response()->json($dto->output());
+      } else {
+        $item = new SiteConfigModel();
+        $input = array_merge(array('id' => StringUtils::generateUuid()), $input);
+        Log::debug($input);
+        return response()->json($item->create($input));
       }
-      $dto = new BooleanDTO(false);
-      return response()->json($dto->output());
-    }
-    $dto = new BooleanDTO(false);
-    return response()->json($dto->output());
-  }
-  /**
-   * @param Request $request
-   * @return \Illuminate\Http\JsonResponse
-   */
-  protected function delete(Request $request) {
-    $itemId = $request->input('id');
-    if (!empty($itemId) && $request->user()->hasRole('WRITER')) {
-      $item = SiteConfigModel::find($itemId);
-      if ($item) {
-        $dto = new BooleanDTO($item->delete());
-        return response()->json($dto->output());
-      }
-      $dto = new BooleanDTO(false);
-      return response()->json($dto->output());
     }
     $dto = new BooleanDTO(false);
     return response()->json($dto->output());
