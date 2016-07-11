@@ -27,21 +27,37 @@ use App\Http\Controllers\Controller;
 use App\ProductCategoryModel;
 
 class HomeController extends Controller {
-
   public function index($lang='vi') {
     App::setLocale($lang);
     return view('home', array(
         'page' => 'home',
-        'categoryList' => ProductCategoryModel::paginate(0),
+        'categoryList' => $this->loadCateList(),
         'brandList' => BrandModel::paginate(0),
         'featureProductList' => ProductModel::paginate(3)
     ));
   }
 
+  private function loadCateByParentId($parentId) {
+    return ProductCategoryModel::where('parentCateId', $parentId)->get();
+  }
+
+  private function loadCateList() {
+    $cateParentList = ProductCategoryModel::where('parentCateId', '')->get();
+    $cateChildrenList = ProductCategoryModel::where('parentCateId', '<>', '')->get();
+    foreach ($cateChildrenList as $cate)
+      if (!empty($cate->parentCateId))
+        foreach ($cateParentList as $parent)
+          if ($parent->id == $cate->parentCateId)
+            $parent->childrens = $this->loadCateByParentId($cate->parentCateId);
+    Log::debug("List cate");
+    Log::debug($cateParentList);
+    return $cateParentList;
+  }
+
   public function products() {
     return view('products', array(
         'page' => 'products',
-        'categoryList' => ProductCategoryModel::paginate(0),
+        'categoryList' => $this->loadCateList(),
         'brandList' => BrandModel::paginate(0),
         'productList' => ProductModel::paginate(0)
     ));
@@ -54,17 +70,17 @@ class HomeController extends Controller {
     }
     return view('product_details', array(
         'page' => 'products',
-        'categoryList' => ProductCategoryModel::paginate(0),
+        'categoryList' => $this->loadCateList(),
         'brandList' => BrandModel::paginate(0),
         'productDetail' => $product
     ));
   }
 
-  public function productCategories($parentId, $code) {
+  public function productCategories($code) {
     $cate = ProductCategoryModel::where('code', $code)->first();
     return view('products', array(
         'page' => 'products',
-        'categoryList' => ProductCategoryModel::paginate(0),
+        'categoryList' => $this->loadCateList(),
         'brandList' => BrandModel::paginate(0),
         'productList' => ProductModel::where('categoryId', $cate->id)->get()
     ));
@@ -75,7 +91,7 @@ class HomeController extends Controller {
     Log::debug($cate);
     return view('products', array(
         'page' => 'products',
-        'categoryList' => ProductCategoryModel::paginate(0),
+        'categoryList' => $this->loadCateList(),
         'brandList' => BrandModel::paginate(0),
         'productList' => ProductModel::where('brandId', $cate->id)->get()
     ));

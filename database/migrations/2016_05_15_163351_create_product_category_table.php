@@ -18,6 +18,7 @@ class CreateProductCategoryTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->string('parentCateId');
+            $table->bigInteger('countView')->nullable();
             $table->timestamps();
         });
     }

@@ -12,11 +12,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name'     => 'Nguyễn Bá Chí Công',
-            'email'    => 'nbchicong@gmail.com',
-            'role'    => 'SUPER_ADMIN',
-            'password' => Hash::make('nbchicong1311'),
+        $user = DB::table('users')->where('email', 'nbchicong@gmail.com')->first();
+        if (!$user)
+            DB::table('users')->insert([
+                'name'     => 'Nguyễn Bá Chí Công',
+                'email'    => 'nbchicong@gmail.com',
+                'role'     => 'SUPER_ADMIN',
+                'password' => Hash::make('nbchicong1311'),
+            ]);
+        DB::table('site_config')->insert([
+            'siteName' => 'Shop Khỉ Con',
+            'siteCode' => 'shop-khi-con',
+            'author'   => 'Shop Khỉ Con',
+            'status'   => 1,
         ]);
 //         $this->call(UsersTableSeeder::class);
     }

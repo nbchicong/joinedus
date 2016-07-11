@@ -101,8 +101,8 @@
                         <label class="col-sm-2 control-label no-padding-right" for="cbb-currency">Đơn vị giá</label>
                         <div class="col-sm-10">
                             <select id="cbb-currency" class="form-control" name="currency">
-                                <option value="đ" @if($site->currency == 'đ') selected @endif>ĐỒNG</option>
-                                <option value="usd" @if($site->currency == 'usd') selected @endif>USD</option>
+                                <option value="VND" @if($site->currency == 'VND') selected @endif>ĐỒNG</option>
+                                <option value="USD" @if($site->currency == 'USD') selected @endif>USD</option>
                             </select>
                         </div>
                     </div>

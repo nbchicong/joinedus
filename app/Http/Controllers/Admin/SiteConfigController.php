@@ -44,10 +44,6 @@ class SiteConfigController extends Controller{
    */
   protected function update(Request $request) {
     $item = SiteConfigModel::first();
-    Log::debug("Request");
-    Log::debug($request);
-    Log::debug("First item config");
-    Log::debug($item);
     if ($request->user()->hasRole('ADMIN')) {
       $input = $request->all();
       if ($item) {
@@ -56,7 +52,6 @@ class SiteConfigController extends Controller{
       } else {
         $item = new SiteConfigModel();
         $input = array_merge(array('id' => StringUtils::generateUuid()), $input);
-        Log::debug($input);
         return response()->json($item->create($input));
       }
     }

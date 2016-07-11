@@ -16,7 +16,7 @@ Route::get('/','Web\HomeController@index');
 Route::get('/index', 'Web\HomeController@index');
 Route::get('/products','Web\HomeController@products');
 Route::get('/products/details/{code}','Web\HomeController@productDetails');
-Route::get('/products/categories/{?parentId}/{code}','Web\HomeController@productCategories');
+Route::get('/products/categories/{code}','Web\HomeController@productCategories');
 Route::get('/products/brands/{brandCode}','Web\HomeController@productBrands');
 Route::get('/blog','Web\HomeController@blog');
 Route::get('/blog/post/{code}','Web\HomeController@blogItem');
@@ -81,6 +81,13 @@ Route::group(['middleware' => ['roles:admin']], function() {
   Route::post('/admin/product/brand/create','Admin\BrandController@create');
   Route::post('/admin/product/brand/update','Admin\BrandController@update');
   Route::post('/admin/product/brand/remove','Admin\BrandController@delete');
+
+  Route::get('/admin/carousel','Admin\CarouselController@index');
+  Route::get('/admin/carousel/list','Admin\CarouselController@listItems');
+  Route::get('/admin/carousel/load','Admin\CarouselController@load');
+  Route::post('/admin/carousel/create','Admin\CarouselController@create');
+  Route::post('/admin/carousel/update','Admin\CarouselController@update');
+  Route::post('/admin/carousel/remove','Admin\CarouselController@delete');
 
   Route::get('/admin/config','Admin\SiteConfigController@index');
   Route::post('/admin/config/update','Admin\SiteConfigController@update');

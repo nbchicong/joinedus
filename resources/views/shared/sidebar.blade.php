@@ -1,22 +1,22 @@
 <h2>Danh mục</h2>
-<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+<div class="panel-group category-products" id="accordian"><!--category-products-->
     {{--{{trans('auth.failed')}}--}}
     @foreach($categoryList as $cate)
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a @if(!empty($cate->childrens))data-toggle="collapse" data-parent="#accordian"@endif href="@if(!empty($cate->childrens))#product-cate-{{$cate->id}}@else{{url('products/categories')}}/{{$cate->code}}@endif">
+                <a @if(!empty($cate->childrens))data-toggle="collapse" data-parent="#accordian"@endif href="@if(!empty($cate->childrens))#product-cate-{{$cate->code}}@else{{url('products/categories')}}/{{$cate->code}}@endif">
                     @if(!empty($cate->childrens))<span class="badge pull-right"><i class="fa fa-plus"></i></span>@endif
                     {{$cate->name}}
                 </a>
             </h4>
         </div>
         @if(!empty($cate->childrens)||isset($cate->childrens))
-        <div id="product-cate-{{$cate->id}}" class="panel-collapse collapse">
+        <div id="product-cate-{{$cate->code}}" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul>
                     @foreach($cate->childrens as $child)
-                    <li><a href="{{url('products/categories')}}/{{$child->parentCateId}}/{{$child->code}}">{{$child->name}} </a></li>
+                    <li><a href="{{url('products/categories')}}/{{$child->code}}">{{$child->name}} </a></li>
                     @endforeach
                 </ul>
             </div>

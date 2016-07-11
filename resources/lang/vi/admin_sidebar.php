@@ -20,6 +20,7 @@ return [
     'menu_post_category' => 'Loại bài viết',
     'menu_post' => 'Bài viết',
     'menu_page_content' => 'Trang nội dung',
+    'menu_carousel' => 'Banner slider',
     'menu_config' => 'Cài đặt'
 
 ];

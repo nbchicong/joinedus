@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBrandsTable extends Migration
+class CreateCarouselTable extends Migration
 {
     /**
      * Run the migrations.
@@ -11,13 +11,15 @@ class CreateBrandsTable extends Migration
      * @return void
      */
     public function up() {
-        Schema::create('product_brands', function (Blueprint $table) {
+        Schema::create('carousels', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id')->unique();
-            $table->string('name');
-            $table->string('code');
-            $table->text('intro')->nullable();
-            $table->bigInteger('countView')->nullable();
+            $table->integer('productId')->references('id')->on('products');
+            $table->string('header');
+            $table->string('title');
+            $table->string('image');
+            $table->string('saleImage');
+            $table->text('message');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateBrandsTable extends Migration
      * @return void
      */
     public function down() {
-        Schema::drop('product_brands');
+        Schema::drop('carousels');
     }
 }

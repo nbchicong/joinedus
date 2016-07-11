@@ -39,6 +39,13 @@
                         <b class="arrow"></b>
                     </li>
                     {{--@endif--}}
+                    <li id="menu-carousel-entity" class="">
+                        <a href="{{url('admin/carousel')}}">
+                            <i class="menu-icon fa fa-puzzle-piece"></i>
+                            <span class="menu-text"> @lang('admin_sidebar.menu_carousel')</span>
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
                     {{--@if(Auth::user()-hasRole('WRITER'))--}}
                     <li id="menu-entry-category" class="">
                         <a href="{{url('admin/entry/category')}}">
@@ -345,18 +352,18 @@
                 </ul>
             </div>
         </div>
-        <div class="ace-scroll nav-scroll">
-            <div class="scroll-track scroll-active" style="display: block; height: 334px;">
-                <div class="scroll-bar"
-                     style="transition-property: top; transition-duration: 0.1s; height: 278px; top: 0px;"></div>
-            </div>
-            <div class="scroll-content" style="max-height: 334px;">
-                <div style="height: 401px; width: 8px;"></div>
-            </div>
-        </div>
+        {{--<div class="ace-scroll nav-scroll">--}}
+            {{--<div class="scroll-track scroll-active" style="display: block; height: 334px;">--}}
+                {{--<div class="scroll-bar"--}}
+                     {{--style="transition-property: top; transition-duration: 0.1s; height: 278px; top: 0px;"></div>--}}
+            {{--</div>--}}
+            {{--<div class="scroll-content" style="max-height: 334px;">--}}
+                {{--<div style="height: 401px; width: 8px;"></div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </div><!-- /.nav-list -->
-    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse" style="z-index: 1;">
-        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state"
-           data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-    </div>
+    {{--<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse" style="z-index: 1;">--}}
+        {{--<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state"--}}
+           {{--data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>--}}
+    {{--</div>--}}
 </div>
