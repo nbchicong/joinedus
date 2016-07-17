@@ -19,7 +19,7 @@ Route::get('/products/details/{code}','Web\HomeController@productDetails');
 Route::get('/products/categories/{code}','Web\HomeController@productCategories');
 Route::get('/products/brands/{brandCode}','Web\HomeController@productBrands');
 Route::get('/blog','Web\HomeController@blog');
-Route::get('/blog/post/{code}','Web\HomeController@blogItem');
+Route::get('/blog/entry/{code}','Web\HomeController@blogItem');
 Route::get('/contact-us','Web\HomeController@contactUs');
 Route::get('/login','Web\HomeController@login');
 Route::get('/logout','Web\HomeController@logout');

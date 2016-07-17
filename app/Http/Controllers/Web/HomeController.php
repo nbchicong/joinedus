@@ -18,13 +18,15 @@
 namespace App\Http\Controllers\Web;
 
 use Log;
+use App\CarouselModel;
+use App\EntryModel;
 use App\BrandModel;
 use App\ProductModel;
+use App\ProductCategoryModel;
+use App\Utils\Constants;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\ProductCategoryModel;
 
 class HomeController extends Controller {
   public function index($lang='vi') {
@@ -32,9 +34,19 @@ class HomeController extends Controller {
     return view('home', array(
         'page' => 'home',
         'categoryList' => $this->loadCateList(),
-        'brandList' => BrandModel::paginate(0),
-        'featureProductList' => ProductModel::paginate(3)
+        'brandList' => $this->loadBrandList(),
+        'carouselList' => CarouselModel::paginate(Constants::HOME_CAROUSEL_PAGE_SIZE),
+        'featureProductList' => ProductModel::paginate(Constants::HOME_FEATURE_PRODUCT_SIZE)
     ));
+  }
+
+  private function totalPaging($list, $pageSize) {
+    $total = count($list);
+    return ceil($total/$pageSize);
+  }
+
+  private function loadBrandList() {
+    return BrandModel::all();
   }
 
   private function loadCateByParentId($parentId) {
@@ -54,12 +66,42 @@ class HomeController extends Controller {
     return $cateParentList;
   }
 
+  private function updateProductCountView(ProductModel $product) {
+    Log::debug("Update Product Count View");
+    $countView = $product->countView;
+    if (empty($countView))
+      $countView = 0;
+    $product->countView = ($countView + 1);
+    $product->update($product->toArray());
+    $this->updateCategoryCountView(ProductCategoryModel::find($product->categoryId));
+    $this->updateBrandCountView(BrandModel::find($product->brandId));
+  }
+
+  private function updateCategoryCountView(ProductCategoryModel $category) {
+    Log::debug("Update Category Count View");
+    $countView = $category->countView;
+    if (empty($countView))
+      $countView = 0;
+    $category->countView = ($countView + 1);
+    $category->update($category->toArray());
+  }
+
+  private function updateBrandCountView(BrandModel $brand) {
+    Log::debug("Update Brand Count View");
+    $countView = $brand->countView;
+    if (empty($countView))
+      $countView = 0;
+    $brand->countView = ($countView + 1);
+    $brand->update($brand->toArray());
+  }
+
   public function products() {
     return view('products', array(
         'page' => 'products',
         'categoryList' => $this->loadCateList(),
-        'brandList' => BrandModel::paginate(0),
-        'productList' => ProductModel::paginate(0)
+        'brandList' => $this->loadBrandList(),
+        'productList' => ProductModel::paginate(Constants::HOME_PRODUCT_PAGE_SIZE),
+        'totalPage' => $this->totalPaging(ProductModel::all(), Constants::HOME_PRODUCT_PAGE_SIZE)
     ));
   }
 
@@ -67,42 +109,64 @@ class HomeController extends Controller {
     $product = ProductModel::where('nameCode', $code)->first();
     if (!$product) {
       $product = new ProductModel();
+    } else {
+      $this->updateProductCountView($product);
     }
     return view('product_details', array(
-        'page' => 'products',
+        'page' => 'product_details',
         'categoryList' => $this->loadCateList(),
-        'brandList' => BrandModel::paginate(0),
+        'brandList' => $this->loadBrandList(),
         'productDetail' => $product
     ));
   }
 
   public function productCategories($code) {
     $cate = ProductCategoryModel::where('code', $code)->first();
+    $list = ProductModel::where('categoryId', $cate->id)->paginate(Constants::HOME_PRODUCT_PAGE_SIZE);
+    $this->updateCategoryCountView($cate);
     return view('products', array(
         'page' => 'products',
         'categoryList' => $this->loadCateList(),
-        'brandList' => BrandModel::paginate(0),
-        'productList' => ProductModel::where('categoryId', $cate->id)->get()
+        'brandList' => $this->loadBrandList(),
+        'productList' => $list,
+        'totalPage' => $this->totalPaging($list, Constants::HOME_PRODUCT_PAGE_SIZE)
     ));
   }
 
   public function productBrands($brandCode) {
     $cate = BrandModel::where('code', $brandCode)->first();
+    $list = ProductModel::where('brandId', $cate->id)->paginate(Constants::HOME_PRODUCT_PAGE_SIZE);
     Log::debug($cate);
+    $this->updateBrandCountView($cate);
     return view('products', array(
         'page' => 'products',
         'categoryList' => $this->loadCateList(),
-        'brandList' => BrandModel::paginate(0),
-        'productList' => ProductModel::where('brandId', $cate->id)->get()
+        'brandList' => $this->loadBrandList(),
+        'productList' => $list,
+        'totalPage' => $this->totalPaging($list, Constants::HOME_PRODUCT_PAGE_SIZE)
     ));
   }
 
   public function blog() {
-    return view('blog', array('page' => 'blog'));
+    return view('blog', array(
+        'page' => 'blog',
+        'categoryList' => $this->loadCateList(),
+        'brandList' => $this->loadBrandList(),
+        'entryList' => EntryModel::paginate(Constants::HOME_ENTRY_PAGE_SIZE),
+        'totalPage' => $this->totalPaging(EntryModel::all(), Constants::HOME_ENTRY_PAGE_SIZE)
+    ));
   }
 
-  public function blogItem($id) {
-    return view('blog_item', array('page' => 'blog'));
+  public function blogItem($entryCode) {
+    $entry = EntryModel::where('code', $entryCode)->first();
+    if (!$entry)
+      $entry = new EntryModel();
+    return view('blog_post', array(
+        'page' => 'blog_post',
+        'categoryList' => $this->loadCateList(),
+        'brandList' => $this->loadBrandList(),
+        'entryDetail' => $entry
+    ));
   }
 
   public function contactUs() {

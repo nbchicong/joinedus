@@ -21,7 +21,7 @@
         <div class="row">
             <!-- PAGE CONTENT BEGINS -->
             <div id="list-items"></div>
-            <div id="item-content" style="display:none">
+            <div id="item-content" class="container-fluid" style="display:none">
                 <form action="{{url('admin/carousel/create')}}" method="post" class="form-horizontal" role="form">
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-header">Tên shop</label>

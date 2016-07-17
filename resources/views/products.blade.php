@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('content')       
+@section('content')
 <section id="advertisement">
     <div class="container">
         <img src="{{asset('images/shop/advertisement.jpg')}}" alt="" />
@@ -48,12 +48,13 @@
                         </div>
                     </div>
                     @endforeach
+                    @if($totalPage > 0)
                     <ul class="pagination">
-                        <li class="active"><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">&raquo;</a></li>
+                        @for($i=0; $i<$totalPage; $i++)
+                            <li @if($i==0)class="active"@endif><a href="?page={{$i+1}}">{{$i+1}}</a></li>
+                        @endfor
                     </ul>
+                    @endif
                 </div><!--features_items-->
             </div>
         </div>

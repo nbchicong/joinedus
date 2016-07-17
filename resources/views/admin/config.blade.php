@@ -14,7 +14,7 @@
     <div class="page-content">
         <div class="row">
             <!-- PAGE CONTENT BEGINS -->
-            <div id="item-content">
+            <div id="item-content" class="container-fluid">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-name">Tên website</label>

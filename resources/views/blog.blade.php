@@ -18,13 +18,14 @@
             <div class="col-sm-9">
                 <div class="blog-post-area">
                     <h2 class="title text-center">Latest From our Blog</h2>
+                    @foreach($entryList as $entry)
                     <div class="single-blog-post">
-                        <h3>Girls Pink T Shirt arrived in store</h3>
+                        <h3>{{$entry->title}}</h3>
                         <div class="post-meta">
                             <ul>
-                                <li><i class="fa fa-user"></i> Mac Doe</li>
-                                <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
+                                <li><i class="fa fa-user"></i> {{$entry->author}}</li>
+                                <li><i class="fa fa-clock-o"></i> {{$entry->create_at}}</li>
+                                <li><i class="fa fa-calendar"></i> {{$entry->create_at}}</li>
                             </ul>
                             <span>
                                 <i class="fa fa-star"></i>
@@ -35,63 +36,22 @@
                             </span>
                         </div>
                         <a href="">
-                            <img src="images/blog/blog-one.jpg" alt="">
+                            <img src="{{url('file/get')}}/{{$entry->image}}" alt="">
                         </a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                        <a  class="btn btn-primary" href="{{url('blog/post/3')}}">Read More</a>
+                        <p>{{substr($entry->content, 0, 100)}}</p>
+                        <a  class="btn btn-primary" href="{{url('blog/entry')}}/{{$entry->code}}">Read More</a>
                     </div>
-                    <div class="single-blog-post">
-                        <h3>Girls Pink T Shirt arrived in store</h3>
-                        <div class="post-meta">
-                            <ul>
-                                <li><i class="fa fa-user"></i> Mac Doe</li>
-                                <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
-                            </ul>
-                            <span>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                            </span>
-                        </div>
-                        <a href="">
-                            <img src="images/blog/blog-two.jpg" alt="">
-                        </a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                        <a  class="btn btn-primary" href="{{url('blog/post/1')}}">Read More</a>
-                    </div>
-                    <div class="single-blog-post">
-                        <h3>Girls Pink T Shirt arrived in store</h3>
-                        <div class="post-meta">
-                            <ul>
-                                <li><i class="fa fa-user"></i> Mac Doe</li>
-                                <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
-                            </ul>
-                            <span>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                            </span>
-                        </div>
-                        <a href="">
-                            <img src="images/blog/blog-three.jpg" alt="">
-                        </a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                        <a  class="btn btn-primary" href="{{url('blog/post/2')}}">Read More</a>
-                    </div>
+                    @endforeach
+                    @if($totalPage > 0)
                     <div class="pagination-area">
                         <ul class="pagination">
-                            <li><a href="" class="active">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
+                            @for($i=0; $i<$totalPage; $i++)
+                            <li><a href="?page={{$i+1}}" @if($i==0)class="active"@endif>{{$i+1}}</a></li>
+                            @endfor
+                            {{--<li><a href=""><i class="fa fa-angle-double-right"></i></a></li>--}}
                         </ul>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

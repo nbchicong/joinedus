@@ -17,14 +17,13 @@
             </div>
             <div class="col-sm-9">
                 <div class="blog-post-area">
-                    <h2 class="title text-center">Latest From our Blog</h2>
                     <div class="single-blog-post">
-                        <h3>Girls Pink T Shirt arrived in store</h3>
+                        <h3>{{$entryDetail->title}}</h3>
                         <div class="post-meta">
                             <ul>
-                                <li><i class="fa fa-user"></i> Mac Doe</li>
-                                <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
+                                <li><i class="fa fa-user"></i> {{$entryDetail->author}}</li>
+                                <li><i class="fa fa-clock-o"></i> {{$entryDetail->create_at}}</li>
+                                <li><i class="fa fa-calendar"></i> {{$entryDetail->create_at}}</li>
                             </ul>
                             <span>
                                 <i class="fa fa-star"></i>
@@ -35,20 +34,9 @@
                             </span>
                         </div>
                         <a href="">
-                            <img src="{{asset('images/blog/blog-one.jpg')}}" alt="">
+                            <img src="{{url('file/get')}}/{{$entryDetail->image}}" alt="">
                         </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p> <br>
-
-                        <p>
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p> <br>
-
-                        <p>
-                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p> <br>
-
-                        <p>
-                            Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-                        </p>
+                        <p>{{$entryDetail->content}}</p>
                         <div class="pager-area">
                             <ul class="pager pull-right">
                                 <li><a href="#">Pre</a></li>
@@ -70,12 +58,14 @@
                         </li>
                         <li class="color">(6 votes)</li>
                     </ul>
+                    @if(!empty($entryDetail->tags))
                     <ul class="tag">
                         <li>TAG:</li>
-                        <li><a class="color" href="">Pink <span>/</span></a></li>
-                        <li><a class="color" href="">T-Shirt <span>/</span></a></li>
-                        <li><a class="color" href="">Girls</a></li>
+                        @foreach(explode(",", $entryDetail->tags) as $tag)
+                        <li><a class="color" href="javascript:;">{{$tag}} <span>/</span></a></li>
+                        @endforeach
                     </ul>
+                    @endif
                 </div><!--/rating-area-->
 
                 <div class="socials-share">
@@ -146,7 +136,7 @@
                                 <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
                             </div>
                         </li>
-                    </ul>					
+                    </ul>
                 </div><!--/Response-area-->
                 <div class="replay-box">
                     <div class="row">

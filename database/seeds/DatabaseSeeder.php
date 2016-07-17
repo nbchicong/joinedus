@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('nbchicong1311'),
             ]);
         DB::table('site_config')->insert([
+            'id'       => \App\Utils\StringUtils::generateUuid(),
             'siteName' => 'Shop Khỉ Con',
             'siteCode' => 'shop-khi-con',
             'author'   => 'Shop Khỉ Con',

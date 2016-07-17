@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
 
 class FileEntryController extends Controller {
+  private $storage = 'public_file_entry';
   protected function listFile() {
     return response()->json(FileEntry::paginate(0));
   }
@@ -25,7 +26,7 @@ class FileEntryController extends Controller {
     if ($file) {
       $extension = $file->getClientOriginalExtension();
       $uuid = StringUtils::generateUuid();
-      Storage::disk('local')->put($uuid . '.' . $extension, File::get($file));
+      Storage::disk($this->storage)->put($uuid . '.' . $extension, File::get($file));
       $entry = new FileEntry();
       $entry->code = $uuid;
       $entry->mimetype = $file->getClientMimeType();
@@ -42,11 +43,11 @@ class FileEntryController extends Controller {
     return response()->json(isset($this->saveToLocal($request)->code));
   }
 
-  protected function get($code) {
+  protected function get($code, $w=255, $h=237) {
     $entry = FileEntry::where('code', '=', $code)->firstOrFail();
     Log::debug('IMG Code');
     Log::debug($entry->code.' - '. $entry->mimetype);
-    $file = Storage::disk('local')->get($entry->filename);
+    $file = Storage::disk($this->storage)->get($entry->filename);
     return new Response($file, 200, array('Content-type' => $entry->mimetype));
   }
 
