@@ -12,9 +12,9 @@ class ChangeIdToSiteConfigTable extends Migration
      */
     public function up()
     {
-        Schema::table('site_config', function (Blueprint $table) {
-          $table->string('id')->unique()->change();
-        });
+//        Schema::table('site_config', function (Blueprint $table) {
+//          $table->string('id')->unique()->change();
+//        });
     }
 
     /**

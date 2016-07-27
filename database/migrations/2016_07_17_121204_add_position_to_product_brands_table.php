@@ -12,9 +12,9 @@ class AddPositionToProductBrandsTable extends Migration
      */
     public function up()
     {
-        Schema::table('product_brands', function (Blueprint $table) {
-          $table->integer('position')->nullable()->after('intro');
-        });
+//        Schema::table('product_brands', function (Blueprint $table) {
+//          $table->integer('position')->nullable()->after('intro');
+//        });
     }
 
     /**

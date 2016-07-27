@@ -12,9 +12,9 @@ class AddFeatureToProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-          $table->boolean('feature')->nullable()->after('details');
-        });
+//        Schema::table('products', function (Blueprint $table) {
+//          $table->boolean('feature')->nullable()->after('details');
+//        });
     }
 
     /**

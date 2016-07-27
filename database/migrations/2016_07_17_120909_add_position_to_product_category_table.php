@@ -12,9 +12,9 @@ class AddPositionToProductCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::table('product_category', function (Blueprint $table) {
-          $table->integer('position')->nullable()->after('parentCateId');
-        });
+//        Schema::table('product_category', function (Blueprint $table) {
+//          $table->integer('position')->nullable()->after('parentCateId');
+//        });
     }
 
     /**

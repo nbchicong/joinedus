@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPositionToCarouselsTable extends Migration
+class AddPointToUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class AddPositionToCarouselsTable extends Migration
      */
     public function up()
     {
-//        Schema::table('carousels', function (Blueprint $table) {
-//          $table->integer('position')->nullable()->after('message');
-//        });
+      Schema::table('users', function (Blueprint $table) {
+        $table->integer('point')->nullable()->after('role');
+      });
     }
 
     /**
@@ -24,8 +24,6 @@ class AddPositionToCarouselsTable extends Migration
      */
     public function down()
     {
-        Schema::table('carousels', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

@@ -92,85 +92,19 @@
                 </div><!--Comments-->
                 <div class="response-area">
                     <h2>3 RESPONSES</h2>
-                    <ul class="media-list">
-                        <li class="media">
-
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="{{asset('images/blog/man-two.jpg')}}" alt="">
-                            </a>
-                            <div class="media-body">
-                                <ul class="sinlge-post-meta">
-                                    <li><i class="fa fa-user"></i>Janis Gallagher</li>
-                                    <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                    <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
-                            </div>
-                        </li>
-                        <li class="media second-media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="{{asset('images/blog/man-three.jpg')}}" alt="">
-                            </a>
-                            <div class="media-body">
-                                <ul class="sinlge-post-meta">
-                                    <li><i class="fa fa-user"></i>Janis Gallagher</li>
-                                    <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                    <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
-                            </div>
-                        </li>
-                        <li class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="{{asset('images/blog/man-four.jpg')}}" alt="">
-                            </a>
-                            <div class="media-body">
-                                <ul class="sinlge-post-meta">
-                                    <li><i class="fa fa-user"></i>Janis Gallagher</li>
-                                    <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                    <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
-                            </div>
-                        </li>
-                    </ul>
+                    <div class="fb-comments" data-href="http://{{$_SERVER['HTTP_HOST']}}{{$_SERVER['REQUEST_URI']}}" data-numposts="5" data-width="847px"></div>
+                    <div id="fb-root"></div>
+                    <script>
+                        (function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) return;
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.7";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));
+                    </script>
                 </div><!--/Response-area-->
-                <div class="replay-box">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h2>Leave a replay</h2>
-                            <form>
-                                <div class="blank-arrow">
-                                    <label>Your Name</label>
-                                </div>
-                                <span>*</span>
-                                <input type="text" placeholder="write your name...">
-                                <div class="blank-arrow">
-                                    <label>Email Address</label>
-                                </div>
-                                <span>*</span>
-                                <input type="email" placeholder="your email address...">
-                                <div class="blank-arrow">
-                                    <label>Web Site</label>
-                                </div>
-                                <input type="email" placeholder="current city...">
-                            </form>
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="text-area">
-                                <div class="blank-arrow">
-                                    <label>Your Name</label>
-                                </div>
-                                <span>*</span>
-                                <textarea name="message" rows="11"></textarea>
-                                <a class="btn btn-primary" href="">post comment</a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--/Repaly Box-->
             </div>	
         </div>
     </div>

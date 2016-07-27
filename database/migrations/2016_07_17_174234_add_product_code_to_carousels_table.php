@@ -12,9 +12,9 @@ class AddProductCodeToCarouselsTable extends Migration
      */
     public function up()
     {
-        Schema::table('carousels', function (Blueprint $table) {
-          $table->integer('productCode')->after('productId');
-        });
+//        Schema::table('carousels', function (Blueprint $table) {
+//          $table->integer('productCode')->after('productId');
+//        });
     }
 
     /**
