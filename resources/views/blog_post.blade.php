@@ -91,8 +91,8 @@
                     </div>
                 </div><!--Comments-->
                 <div class="response-area">
-                    <h2>3 RESPONSES</h2>
-                    <div class="fb-comments" data-href="http://{{$_SERVER['HTTP_HOST']}}{{$_SERVER['REQUEST_URI']}}" data-numposts="5" data-width="847px"></div>
+                    <h2>COMMENTS</h2>
+                    <div class="fb-comments" data-href="{{\App\Utils\Helper::getRequestUrl()}}" data-numposts="5" data-width="100%"></div>
                     <div id="fb-root"></div>
                     <script>
                         (function (d, s, id) {
