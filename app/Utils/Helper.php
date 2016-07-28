@@ -32,4 +32,9 @@ class Helper {
     }
     return $price;
   }
+
+  public static function getRequestUrl() {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    return $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+  }
 }
