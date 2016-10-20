@@ -6,20 +6,20 @@
  * Time: 2:04 PM
  * ---------------------------------------------------
  * Project: laravel
- * @name: BrandModel.php
+ * @name: ProductCategoryModel.php
  * @package: App
  * @author: nbchicong
  */
 /**
- * Class BrandModel
+ * Class ProductCategoryModel
  * @package App
  */
 
 
-namespace App;
+namespace App\Model;
 
-class BrandModel extends BaseModel {
+class ProductCategoryModel extends BaseModel {
   protected $primaryKey = 'id';
-  protected $table = 'product_brands';
-  protected $fillable = array('name', 'intro');
+  protected $table = 'product_category';
+  protected $fillable = array('name', 'parentCateId');
 }

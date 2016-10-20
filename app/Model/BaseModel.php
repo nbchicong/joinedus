@@ -12,16 +12,19 @@
  */
 /**
  * Class BaseModel
- * @package App
+ * @package App\Model
  */
 
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Support\Facades\DB;
 
-class BaseModel extends Model {
+abstract class BaseModel extends Model {
+  public function getClassName() {
+    return get_class($this);
+  }
   public function select($sql_stmt) {
     return DB::select($sql_stmt);
   }
