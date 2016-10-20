@@ -39,7 +39,6 @@ class RoleMiddleware {
         return redirect()->guest('login');
       }
     } else {
-      Log::debug("User logging - ", ["user" => $this->auth->user()]);
       Log::debug("Role checking - ". $role);
       Log::debug("Has role - ". $this->auth->user()->hasRole($role));
       if ($this->auth->user()->hasRole($role)) {
