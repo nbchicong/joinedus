@@ -23,7 +23,8 @@ class Constants {
   const ADMIN_PAGE_SIZE = 10;
   const HOME_ENTRY_PAGE_SIZE = 1;
   const HOME_PRODUCT_PAGE_SIZE = 1;
-  const HOME_FEATURE_PRODUCT_SIZE = 6;
+  const HOME_FEATURE_PRODUCT_SIZE = 3;
   const HOME_NEW_PRODUCT_SIZE = 9;
   const HOME_CAROUSEL_PAGE_SIZE = 3;
+  const PRODUCT_PAGE_SIZE = 9;
 }

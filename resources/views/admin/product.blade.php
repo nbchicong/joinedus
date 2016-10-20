@@ -91,9 +91,12 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-tags">Hình sản phẩm</label>
-                        <div class="col-sm-2">
+                        <div class="col-sm-10">
                             <input type="file" id="file-image" name="fileUpload" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="txt-content" class="form-control" name="details" placeholder="Nhập mô tả sản phẩm"></textarea>
                     </div>
                     <input type="hidden" id="txt-id" name="id" value="" />
                 </form>
@@ -104,7 +107,9 @@
 @endsection
 @section('script')
     <script src="{{asset('js/jquery/plugin/jquery.form.min.js')}}"></script>
+    <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('js/libs/components/grid.min.js')}}"></script>
     <script src="{{asset('js/libs/components/grid-columns.min.js')}}"></script>
+    <script src="{{asset('js/libs/components/file-uploader.min.js')}}"></script>
     <script src="{{asset('js/admin/libs/product-entity.min.js')}}"></script>
 @endsection

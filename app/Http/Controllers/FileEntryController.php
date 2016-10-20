@@ -52,7 +52,7 @@ class FileEntryController extends AbstractController {
   }
 
   protected function get($fileName, $w=255, $h=237) {
-    $entry = FileEntry::where('filename', '=', $fileName)->firstOrFail();
+    $entry = FileEntry::where('code', '=', $fileName)->firstOrFail();
     $file = Storage::disk($this->storage)->get($entry->filename);
     return new Response($file, 200, array('Content-type' => $entry->mimetype));
   }

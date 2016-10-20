@@ -9,7 +9,7 @@
                 <ul class="nav nav-list" style="top: 0px;">
                     {{--@if(Auth::user()-hasRole('SUPER_ADMIN'))--}}
                     <li id="menu-users-entity" class="">
-                        <a href="{{url('admin/users')}}">
+                        <a href="{{Helper::getWebUrl('admin/users')}}">
                             <i class="menu-icon fa fa-user"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_user')</span>
                         </a>
@@ -18,21 +18,21 @@
                     {{--@endif--}}
                     {{--@if(Auth::user()-hasRole('ADMIN'))--}}
                     <li id="menu-product-category" class="">
-                        <a href="{{url('admin/product/category')}}">
+                        <a href="{{Helper::getWebUrl('admin/product/category')}}">
                             <i class="menu-icon fa fa-list"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_product_category')</span>
                         </a>
                         <b class="arrow"></b>
                     </li>
                     <li id="menu-product-brand" class="">
-                        <a href="{{url('admin/product/brand')}}">
+                        <a href="{{Helper::getWebUrl('admin/product/brand')}}">
                             <i class="menu-icon fa fa-bullseye"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_product_brand')</span>
                         </a>
                         <b class="arrow"></b>
                     </li>
                     <li id="menu-product-entity" class="">
-                        <a href="{{url('admin/product')}}">
+                        <a href="{{Helper::getWebUrl('admin/product')}}">
                             <i class="menu-icon fa fa-bars"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_product')</span>
                         </a>
@@ -40,7 +40,7 @@
                     </li>
                     {{--@endif--}}
                     <li id="menu-carousel-entity" class="">
-                        <a href="{{url('admin/carousel')}}">
+                        <a href="{{Helper::getWebUrl('admin/carousel')}}">
                             <i class="menu-icon fa fa-puzzle-piece"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_carousel')</span>
                         </a>
@@ -48,21 +48,21 @@
                     </li>
                     {{--@if(Auth::user()-hasRole('WRITER'))--}}
                     <li id="menu-entry-category" class="">
-                        <a href="{{url('admin/entry/category')}}">
+                        <a href="{{Helper::getWebUrl('admin/entry/category')}}">
                             <i class="menu-icon fa fa-list"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_post_category')</span>
                         </a>
                         <b class="arrow"></b>
                     </li>
                     <li id="menu-entry-entity" class="">
-                        <a href="{{url('admin/entry')}}">
+                        <a href="{{Helper::getWebUrl('admin/entry')}}">
                             <i class="menu-icon fa fa-file-o"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_post')</span>
                         </a>
                         <b class="arrow"></b>
                     </li>
                     <li id="menu-page-content" class="">
-                        <a href="{{url('admin/page')}}">
+                        <a href="{{Helper::getWebUrl('admin/page')}}">
                             <i class="menu-icon fa fa-file"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_page_content')</span>
                         </a>
@@ -71,7 +71,7 @@
                     {{--@endif--}}
                     {{--@if(Auth::user()-hasRole('ADMIN'))--}}
                     <li id="menu-site-config" class="">
-                        <a href="{{url('admin/config')}}">
+                        <a href="{{Helper::getWebUrl('admin/config')}}">
                             <i class="menu-icon fa fa-cog"></i>
                             <span class="menu-text"> @lang('admin_sidebar.menu_config')</span>
                         </a>

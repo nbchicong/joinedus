@@ -4,6 +4,10 @@
     <div id="main-container" class="main-container ace-save-state">
         <script type="text/javascript">
             try{ace.settings.loadState('main-container')}catch(e){}
+            var SITE_CONFIG = {
+                WEB_EXT: '{{$webExt}}',
+                SERVICE_EXT: '{{$serviceExt}}'
+            };
         </script>
         @include('widgets.admin.sidebar')
         <div class="main-content">

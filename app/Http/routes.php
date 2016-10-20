@@ -13,7 +13,13 @@
 
 // WEB CBL
 Route::get('/', 'Web\CBLIndexController@index');
-Route::get('/index.html', 'Web\CBLIndexController@index');
+Route::get(Helper::getRouteWebPath('/index'), 'Web\CBLIndexController@index');
+Route::get(Helper::getRouteWebPath('/tin-tuc'), 'Web\CBLNewController@index');
+Route::get(Helper::getRouteWebPath('/tin-tuc/{code}'), 'Web\CBLNewController@load');
+Route::get(Helper::getRouteWebPath('/noi-dung/{code}'), 'Web\CBLPageController@load');
+Route::get(Helper::getRouteWebPath('/san-pham'), 'Web\CBLProductController@index');
+Route::get(Helper::getRouteWebPath('/san-pham/{cate}'), 'Web\CBLProductController@cate');
+Route::get(Helper::getRouteWebPath('/san-pham/{cate}/{code}'), 'Web\CBLProductController@load');
 
 // WEB E-SHOPPER
 //Route::get('/','Web\HomeController@index');

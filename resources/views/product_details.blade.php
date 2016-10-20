@@ -246,7 +246,7 @@
                         <div class="tab-pane fade active in" id="reviews" >
                             <div class="col-sm-12">
                                 <p><b>Write Your Review</b></p>
-                                <div class="fb-comments" data-href="{{\App\Utils\Helper::getRequestUrl()}}" data-numposts="5" data-width="100%"></div>
+                                <div class="fb-comments" data-href="{{Helper::getRequestUrl()}}" data-numposts="5" data-width="100%"></div>
                                 <div id="fb-root"></div>
                                 <script>
                                     (function (d, s, id) {

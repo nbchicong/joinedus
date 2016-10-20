@@ -25,14 +25,14 @@
                             <div class="single-products">
                                 <div class="productinfo text-center">
                                     <img src="{{url('file/get')}}/{{$product->imageCodes}}" alt="" />
-                                    <h2>{{\App\Utils\Helper::getPrice($product->price)}}</h2>
+                                    <h2>{{Helper::getPrice($product->price)}}</h2>
                                     <p>{{$product->name}}</p>
                                     <a href="{{url('cart')}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     <a href="{{url('products/details')}}/{{$product->nameCode}}" class="btn btn-default add-to-cart"><i class="fa fa-info"></i>View Details</a>
                                 </div>
                                 <div class="product-overlay">
                                     <div class="overlay-content">
-                                        <h2>{{\App\Utils\Helper::getPrice($product->price)}}</h2>
+                                        <h2>{{Helper::getPrice($product->price)}}</h2>
                                         <p>{{$product->name}}</p>
                                         <a href="{{url('cart')}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         <a href="{{url('products/details')}}/{{$product->nameCode}}" class="btn btn-default add-to-cart"><i class="fa fa-info"></i>View More</a>

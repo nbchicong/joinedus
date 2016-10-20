@@ -92,7 +92,7 @@
                 </div><!--Comments-->
                 <div class="response-area">
                     <h2>COMMENTS</h2>
-                    <div class="fb-comments" data-href="{{\App\Utils\Helper::getRequestUrl()}}" data-numposts="5" data-width="100%"></div>
+                    <div class="fb-comments" data-href="{{Helper::getRequestUrl()}}" data-numposts="5" data-width="100%"></div>
                     <div id="fb-root"></div>
                     <script>
                         (function (d, s, id) {

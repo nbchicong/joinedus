@@ -44,6 +44,10 @@ class ProductController extends AbstractController {
   protected function listItems() {
     return response()->json(ProductModel::paginate(0));
   }
+  
+  private function convertPromotion($promotions) {
+    return ($promotions == 'on' || $promotions) ? 1 : 0;
+  }
 
   protected function getModel(ProductModel $product, Request $request) {
     Log::debug('Request');
@@ -57,7 +61,7 @@ class ProductController extends AbstractController {
     $product->quantity = $request->input('quantity');
     $product->availability = $request->input('availability');
     $product->price = $request->input('price');
-    $product->promotions = $request->input('promotions');
+    $product->promotions = $this->convertPromotion($request->input('promotions'));
     $product->discount = $request->input('discount');
     $product->details = $request->input('details');
     $product->tags = $request->input('tags');

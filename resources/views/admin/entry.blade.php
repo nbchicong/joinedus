@@ -65,6 +65,7 @@
 @endsection
 @section('script')
     <script src="{{asset('js/jquery/plugin/jquery.form.min.js')}}"></script>
+    <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('js/libs/components/grid.min.js')}}"></script>
     <script src="{{asset('js/libs/components/grid-columns.min.js')}}"></script>
     <script src="{{asset('js/admin/libs/entry-entity.min.js')}}"></script>
