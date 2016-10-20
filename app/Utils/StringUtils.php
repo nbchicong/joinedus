@@ -82,4 +82,8 @@ class StringUtils {
   public static function replace2Code($str) {
     return str_replace(" ", "-", trim(strtolower(StringUtils::removeAccents($str))));
   }
+
+  public static function isEmpty($str) {
+    return $str == '' || $str == ' ' || $str == null;
+  }
 }
