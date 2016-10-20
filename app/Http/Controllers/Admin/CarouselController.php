@@ -19,14 +19,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Log;
-use App\Data\BooleanDTO;
-use App\ProductModel;
-use App\CarouselModel;
-use App\Http\Controllers\FileEntryController;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Data\BooleanDTO;
+use App\Model\ProductModel;
+use App\Model\CarouselModel;
+use App\Http\Controllers\AbstractController;
+use App\Http\Controllers\FileEntryController;
 
-class CarouselController extends Controller {
+class CarouselController extends AbstractController {
   protected function index() {
     return view('admin.carousel', array(
         'title'=>'Banner slider',
@@ -64,9 +64,8 @@ class CarouselController extends Controller {
     $entry->productId = $request->input('productId');
     $entry->message = $request->input('message');
     $file = $fileStore->saveToLocal();
-    if (isset($file->code)) {
+    if (isset($file->code))
       $entry->image = $file->code;
-    }
     return $entry;
   }
 
@@ -114,7 +113,12 @@ class CarouselController extends Controller {
     if (!empty($id) && $request->user()->hasRole('ADMIN')) {
       $entry = CarouselModel::find($id);
       if ($entry) {
-        $dto = new BooleanDTO($entry->delete());
+        $carouselImg = $entry->image;
+        if ($entry->delete()) {
+          $dto = new BooleanDTO(FileEntryController::remove($carouselImg));
+          return response()->json($dto->output());
+        }
+        $dto = new BooleanDTO(false);
         return response()->json($dto->output());
       }
       $dto = new BooleanDTO(false);

@@ -18,14 +18,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\BrandModel;
+use App\Model\BrandModel;
 use App\Data\BooleanDTO;
 use App\Utils\StringUtils;
+use App\Http\Controllers\AbstractController;
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-class BrandController extends Controller{
+class BrandController extends AbstractController {
   protected function index() {
     return view('admin.brand', array('title'=>'Danh sách nhà sản xuất'));
   }
@@ -34,9 +33,10 @@ class BrandController extends Controller{
   }
 
   private function getModel(BrandModel $model, Request $request) {
-    $model->name = $request->input('name');
+    $model->name = $this->getParams('name');
     $model->code = StringUtils::replace2Code($model->name);
-    $model->intro = $request->input('intro');
+    $model->intro = $this->getParams('intro');
+    $model->position = $this->getParams('position');
     return $model;
   }
   protected function create(Request $request) {
@@ -62,7 +62,7 @@ class BrandController extends Controller{
   }
   protected function delete(Request $request) {
     $itemId = $request->input('id');
-    if (!empty($itemId) && $request->user()->hasRole('ADMIN')) {
+    if (!empty($itemId) && $this->getPrincipal()->hasRole('ADMIN')) {
       $item = BrandModel::find($itemId);
       if ($item) {
         $dto = new BooleanDTO($item->delete());

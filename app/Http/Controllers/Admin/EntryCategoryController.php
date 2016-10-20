@@ -20,12 +20,12 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Data\BooleanDTO;
-use App\EntryCategoryModel;
-use App\Http\Controllers\Controller;
+use App\Model\EntryCategoryModel;
+use App\Http\Controllers\AbstractController;
 use App\Utils\StringUtils;
 use Illuminate\Http\Request;
 
-class EntryCategoryController extends Controller {
+class EntryCategoryController extends AbstractController {
   protected function index() {
     return view('admin.entry-category', array(
         'title'=>'Danh sách bài viết',

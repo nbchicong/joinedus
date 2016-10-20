@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Model\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -32,13 +33,20 @@ class AuthController extends Controller
 
     /**
      * Create a new authentication controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
         parent::__construct();
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+    }
+    
+    public function loginForm() {
+      return view('auth.login');
+    }
+  
+    public function logoutAction() {
+      Auth::logout();
+      return view('auth.login', array('page' => 'home'));
     }
 
     /**

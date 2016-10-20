@@ -19,17 +19,16 @@
 namespace App\Http\Controllers\Admin;
 
 use Log;
-use App\BrandModel;
-use App\ProductCategoryModel;
-use App\ProductModel;
+use Illuminate\Http\Request;
+use App\Model\BrandModel;
+use App\Model\ProductCategoryModel;
+use App\Model\ProductModel;
 use App\Data\BooleanDTO;
 use App\Utils\StringUtils;
-use Illuminate\Http\Request;
-use App\Http\Requests;
+use App\Http\Controllers\AbstractController;
 use App\Http\Controllers\FileEntryController;
-use App\Http\Controllers\Controller;
 
-class ProductController extends Controller {
+class ProductController extends AbstractController {
   protected function index() {
     return view('admin.product', array(
         'title'=>'Danh sách sản phẩm',
@@ -97,7 +96,12 @@ class ProductController extends Controller {
     if (!empty($itemId) && $request->user()->hasRole('ADMIN')) {
       $item = ProductModel::find($itemId);
       if ($item) {
-        $dto = new BooleanDTO($item->delete());
+        $deleted = $item->delete();
+        if ($deleted) {
+          $dto = new BooleanDTO(FileEntryController::remove($item->imageCodes));
+          return response()->json($dto->output());
+        }
+        $dto = new BooleanDTO($deleted);
         return response()->json($dto->output());
       }
       $dto = new BooleanDTO(false);

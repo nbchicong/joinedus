@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use Log;
 use App\Utils\StringUtils;
-use App\FileEntry;
+use App\Model\FileEntry;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
 
-class FileEntryController extends Controller {
+class FileEntryController extends AbstractController {
   private $storage = 'public_file_entry';
   protected function listFile() {
     return response()->json(FileEntry::paginate(0));
@@ -42,11 +41,18 @@ class FileEntryController extends Controller {
   protected function add(Request $request) {
     return response()->json(isset($this->saveToLocal($request)->code));
   }
+  
+  public static function remove($imgCode) {
+    if (!empty($imgCode)) {
+      $entry = FileEntry::where('code', '=', $imgCode)->firstOrFail();
+      if ($entry) return $entry->delete();
+      return false;
+    }
+    return false;
+  }
 
-  protected function get($code, $w=255, $h=237) {
-    $entry = FileEntry::where('code', '=', $code)->firstOrFail();
-    Log::debug('IMG Code');
-    Log::debug($entry->code.' - '. $entry->mimetype);
+  protected function get($fileName, $w=255, $h=237) {
+    $entry = FileEntry::where('filename', '=', $fileName)->firstOrFail();
     $file = Storage::disk($this->storage)->get($entry->filename);
     return new Response($file, 200, array('Content-type' => $entry->mimetype));
   }

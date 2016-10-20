@@ -18,11 +18,11 @@
 namespace App\Http\Controllers\Web;
 
 use Log;
-use App\CarouselModel;
-use App\EntryModel;
-use App\BrandModel;
-use App\ProductModel;
-use App\ProductCategoryModel;
+use App\Model\CarouselModel;
+use App\Model\EntryModel;
+use App\Model\BrandModel;
+use App\Model\ProductModel;
+use App\Model\ProductCategoryModel;
 use App\Utils\Constants;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -179,7 +179,7 @@ class HomeController extends Controller {
 
   public function logout() {
     Auth::logout();
-    return view('login', array('page' => 'home'));
+    return view('auth.login', array('page' => 'home'));
   }
 
   public function cart() {

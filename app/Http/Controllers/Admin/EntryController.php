@@ -20,14 +20,14 @@ namespace App\Http\Controllers\Admin;
 
 use Log;
 use App\Data\BooleanDTO;
-use App\EntryCategoryModel;
-use App\EntryModel;
+use App\Model\EntryCategoryModel;
+use App\Model\EntryModel;
 use App\Utils\StringUtils;
+use App\Http\Controllers\AbstractController;
 use App\Http\Controllers\FileEntryController;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class EntryController extends Controller {
+class EntryController extends AbstractController {
   protected function index() {
     return view('admin.entry', array(
         'title'=>'Danh sách bài viết',
@@ -57,8 +57,6 @@ class EntryController extends Controller {
    * @return EntryModel
    */
   private function getModel(EntryModel $entry, Request $request) {
-    Log::debug('Request');
-    Log::debug($request);
     $fileStore = new FileEntryController();
     $entry->title = $request->input('title');
     $entry->code = StringUtils::replace2Code($entry->title);
@@ -68,9 +66,8 @@ class EntryController extends Controller {
     $entry->rating = $request->input('rating');
     $entry->tags = $request->input('tags');
     $file = $fileStore->saveToLocal();
-    if (isset($file->code)) {
+    if (isset($file->code))
       $entry->image = $file->code;
-    }
     return $entry;
   }
 
@@ -114,7 +111,15 @@ class EntryController extends Controller {
     if (!empty($id) && $request->user()->hasRole('WRITER')) {
       $entry = EntryModel::find($id);
       if ($entry) {
-        $dto = new BooleanDTO($entry->delete());
+        $deleted = $entry->delete();
+        if ($deleted) {
+          if (!empty($entry->image)) {
+            FileEntryController::remove($entry->image);
+          }
+          $dto = new BooleanDTO($deleted);
+          return response()->json($dto->output());
+        }
+        $dto = new BooleanDTO($deleted);
         return response()->json($dto->output());
       }
       $dto = new BooleanDTO(false);

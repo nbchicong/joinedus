@@ -18,14 +18,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Data\BooleanDTO;
-use App\PageContentModel;
-use App\Utils\StringUtils;
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Data\BooleanDTO;
+use App\Model\PageContentModel;
+use App\Utils\StringUtils;
+use App\Http\Controllers\AbstractController;
 
-class PageContentController extends Controller{
+class PageContentController extends AbstractController {
   protected function index() {
     return view('admin.page-content', array('title'=>'Danh sách trang nội dung'));
   }

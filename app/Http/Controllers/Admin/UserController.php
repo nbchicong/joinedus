@@ -18,13 +18,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
-use App\Data\BooleanDTO;
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Model\User;
+use App\Data\BooleanDTO;
+use App\Http\Controllers\AbstractController;
 
-class UserController extends Controller {
+class UserController extends AbstractController {
   protected function index() {
     return view('admin.user', array('title'=>'Danh sách người dùng'));
   }

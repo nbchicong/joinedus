@@ -18,14 +18,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\ProductCategoryModel;
+use Illuminate\Http\Request;
+use App\Model\ProductCategoryModel;
 use App\Data\BooleanDTO;
 use App\Utils\StringUtils;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AbstractController;
 
-class ProductCategoryController extends Controller{
+class ProductCategoryController extends AbstractController {
   protected function index() {
     return view('admin.product-category', array(
         'categoryList' => ProductCategoryModel::paginate(0),

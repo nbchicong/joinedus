@@ -19,14 +19,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Utils\StringUtils;
-use Log;
 use App\Data\BooleanDTO;
-use App\SiteConfigModel;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Model\SiteConfigModel;
+use App\Http\Requests\Request;
+use App\Http\Controllers\AbstractController;
 
-class SiteConfigController extends Controller{
+class SiteConfigController extends AbstractController {
   protected function index() {
     return view('admin.config', array('title'=>'Cấu hình site'));
   }
