@@ -10,7 +10,7 @@
             <a href="#" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-                    Ace Admin
+                    {{$site->siteName}} Admin
                 </small>
             </a>
         </div>
