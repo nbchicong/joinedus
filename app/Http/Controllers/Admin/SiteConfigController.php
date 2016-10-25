@@ -18,10 +18,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
+use Log;
 use App\Utils\StringUtils;
 use App\Data\BooleanDTO;
 use App\Model\SiteConfigModel;
-use App\Http\Requests\Request;
 use App\Http\Controllers\AbstractController;
 
 class SiteConfigController extends AbstractController {
@@ -42,8 +43,11 @@ class SiteConfigController extends AbstractController {
    */
   protected function update(Request $request) {
     $item = SiteConfigModel::first();
+    Log::debug($request->all());
     if ($request->user()->hasRole('ADMIN')) {
       $input = $request->all();
+      Log::debug($request->all());
+      Log::debug($item);
       if ($item) {
         $dto = new BooleanDTO($item->update($input));
         return response()->json($dto->output());
