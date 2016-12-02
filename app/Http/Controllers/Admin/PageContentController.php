@@ -35,7 +35,7 @@ class PageContentController extends AbstractController {
    */
   private function getModel(PageContentModel $model, Request $request) {
     $model->title = $request->input('title');
-    $model->code = StringUtils::replace2Code($model->name);
+    $model->code = StringUtils::replace2Code($model->title);
     $model->author = $request->user()->getUsername();
     $model->content = $request->input('content');
     $model->tags = $request->input('tags');

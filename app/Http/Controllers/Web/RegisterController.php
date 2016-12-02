@@ -44,4 +44,11 @@ class RegisterController extends AbstractController {
           return redirect()->guest('login');
         }
     }
+  
+  /**
+   * Init Controller
+   */
+  public function init() {
+    // TODO: Implement init() method.
+  }
 }

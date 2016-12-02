@@ -20,7 +20,6 @@ namespace App\Model;
 
 
 class EntryModel extends BaseModel {
-  protected $primaryKey = 'id';
   protected $table = 'entries';
   protected $fillable = array('title', 'cateId', 'author', 'content', 'image', 'rating', 'tags');
 }

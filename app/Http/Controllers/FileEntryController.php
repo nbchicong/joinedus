@@ -56,5 +56,11 @@ class FileEntryController extends AbstractController {
     $file = Storage::disk($this->storage)->get($entry->filename);
     return new Response($file, 200, array('Content-type' => $entry->mimetype));
   }
-
+  
+  /**
+   * Init Controller
+   */
+  public function init() {
+    // TODO: Implement init() method.
+  }
 }

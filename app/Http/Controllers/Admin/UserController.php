@@ -59,4 +59,11 @@ class UserController extends AbstractController {
     $dto = new BooleanDTO(false);
     return response()->json($dto->output());
   }
+  
+  /**
+   * Init Controller
+   */
+  public function init() {
+    // TODO: Implement init() method.
+  }
 }

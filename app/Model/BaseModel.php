@@ -18,18 +18,12 @@
 
 namespace App\Model;
 
+use App\Data\DbConstant;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 abstract class BaseModel extends Model {
+  protected $primaryKey = DbConstant::ID_KEY;
   public function getClassName() {
     return get_class($this);
-  }
-  public function select($sql_stmt) {
-    return DB::select($sql_stmt);
-  }
-
-  public function queryDb($sql_stmt) {
-    DB::statement($sql_stmt);
   }
 }

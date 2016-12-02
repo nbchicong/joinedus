@@ -21,7 +21,7 @@ use App\WebConstant;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
-class AbstractController extends Controller {
+abstract class AbstractController extends Controller {
   protected $model = null;
 
   /**
@@ -42,7 +42,7 @@ class AbstractController extends Controller {
 
   /**
    * Get current user logged
-   * @return \App\User|null
+   * @return \App\Model\User|null
    */
   protected function getPrincipal() {
     if ($this->isAuth())
@@ -85,6 +85,13 @@ class AbstractController extends Controller {
    */
   protected function getOffset() {
     return (int) $this->getParams(WebConstant::PAGE_OFFSET_PARAM);
+  }
+  
+  /**
+   * @return mixed|null
+   */
+  protected function getBo() {
+    return $this->bo;
   }
 
   protected function index() {}

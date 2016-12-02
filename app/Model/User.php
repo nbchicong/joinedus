@@ -24,45 +24,45 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-  public function getId() {
-    return $this->id;
-  }
-
-  public function setId($id) {
-    $this->id = $id;
-  }
-
-  public function getName() {
-    return $this->name;
-  }
-
-  public function setName($name) {
-    $this->name = $name;
-  }
-
-  public function getEmail() {
-    return $this->email;
-  }
-
-  public function setEmail($email) {
-    $this->email = $email;
-  }
-
-  public function getPassword() {
-    return $this->password;
-  }
-
-  public function setPassword($pass) {
-    $this->password = $pass;
-  }
-
-  public function getRole() {
-    return $this->role;
-  }
-
-  public function setRole($role) {
-    $this->role = $role;
-  }
+    public function getId() {
+      return $this->id;
+    }
+  
+    public function setId($id) {
+      $this->id = $id;
+    }
+  
+    public function getName() {
+      return $this->name;
+    }
+  
+    public function setName($name) {
+      $this->name = $name;
+    }
+  
+    public function getEmail() {
+      return $this->email;
+    }
+  
+    public function setEmail($email) {
+      $this->email = $email;
+    }
+  
+    public function getPassword() {
+      return $this->password;
+    }
+  
+    public function setPassword($pass) {
+      $this->password = $pass;
+    }
+  
+    public function getRole() {
+      return $this->role;
+    }
+  
+    public function setRole($role) {
+      $this->role = $role;
+    }
 
     public function isSuperAdmin() {
         return strtoupper($this->role) == 'SUPER_ADMIN';

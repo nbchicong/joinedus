@@ -11,13 +11,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 use Log;
 use App;
 
-class Controller extends BaseController {
+abstract class Controller extends BaseController implements ControllerImpl {
   use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
   protected $request;
   /**
    * Controller constructor.
    */
   public function __construct() {
+    $this->init();
     $this->request = new Request();
     Log::debug("System locate - " . App::getLocale());
   }

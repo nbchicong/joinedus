@@ -47,6 +47,7 @@
     </div><!-- /.page-content -->
 @endsection
 @section('script')
+    <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('js/libs/components/grid.min.js')}}"></script>
     <script src="{{asset('js/libs/components/grid-columns.min.js')}}"></script>
     <script src="{{asset('js/admin/libs/page-content-entity.min.js')}}"></script>

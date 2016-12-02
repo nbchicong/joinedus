@@ -19,7 +19,6 @@
 namespace App\Model;
 
 class BrandModel extends BaseModel {
-  protected $primaryKey = 'id';
   protected $table = 'product_brands';
   protected $fillable = array('name', 'code', 'intro', 'countView', 'position');
 }

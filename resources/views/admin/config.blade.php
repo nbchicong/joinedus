@@ -125,25 +125,25 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-social-fb">Facebook</label>
                         <div class="col-sm-10">
-                            <input type="text" id="txt-social-fb" name="social_fb" placeholder="http://www.facebook.com/page-facebook" class="form-control" value="{{$site->social_fb}}">
+                            <input type="text" id="txt-social-fb" name="facebookAcc" placeholder="http://www.facebook.com/page-facebook" class="form-control" value="{{$site->facebookAcc}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-social-zl">Zalo</label>
                         <div class="col-sm-10">
-                            <input type="text" id="txt-social-zl" name="social_zl" placeholder="Nhập số điện thoại" class="form-control" value="{{$site->social_zl}}">
+                            <input type="text" id="txt-social-zl" name="zaloAcc" placeholder="Nhập số điện thoại" class="form-control" value="{{$site->zaloAcc}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-social-gg">Google +</label>
                         <div class="col-sm-10">
-                            <input type="text" id="txt-social-gg" name="social_gg" placeholder="http://www.plus.google.com/page-google-plus" class="form-control" value="{{$site->social_gg}}">
+                            <input type="text" id="txt-social-gg" name="gplusAcc" placeholder="http://www.plus.google.com/page-google-plus" class="form-control" value="{{$site->gplusAcc}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="txt-social-in">Linked In</label>
                         <div class="col-sm-10">
-                            <input type="text" id="txt-social-in" name="social_in" placeholder="http://www.linkedin.com/page-linked-in" class="form-control" value="{{$site->social_in}}">
+                            <input type="text" id="txt-social-in" name="linkedinAcc" placeholder="http://www.linkedin.com/page-linked-in" class="form-control" value="{{$site->linkedinAcc}}">
                         </div>
                     </div>
                 </form>

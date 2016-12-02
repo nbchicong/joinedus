@@ -6,8 +6,7 @@ use App\Model\SiteConfigModel;
 use App\WebConstant;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
-{
+class AppServiceProvider extends ServiceProvider {
     /**
      * Bootstrap any application services.
      *

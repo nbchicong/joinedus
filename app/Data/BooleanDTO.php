@@ -21,7 +21,8 @@ namespace App\Data;
 
 class BooleanDTO extends BaseDTO {
   private $success = false;
-
+  
+  /** @noinspection PhpMissingParentConstructorInspection */
   /**
    * BooleanDTO constructor.
    * @param bool $success

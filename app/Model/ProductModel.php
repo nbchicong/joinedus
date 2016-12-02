@@ -18,7 +18,6 @@
 namespace App\Model;
 
 class ProductModel extends BaseModel {
-  protected $primaryKey = 'id';
   protected $table = 'products';
   protected $fillable = array(
       'name',

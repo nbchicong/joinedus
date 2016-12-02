@@ -19,7 +19,6 @@
 namespace App\Model;
 
 class ProductCategoryModel extends BaseModel {
-  protected $primaryKey = 'id';
   protected $table = 'product_category';
   protected $fillable = array('name', 'parentCateId');
 }

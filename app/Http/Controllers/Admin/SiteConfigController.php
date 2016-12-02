@@ -43,13 +43,33 @@ class SiteConfigController extends AbstractController {
    */
   protected function update(Request $request) {
     $item = SiteConfigModel::first();
-    Log::debug($request->all());
     if ($request->user()->hasRole('ADMIN')) {
       $input = $request->all();
       Log::debug($request->all());
       Log::debug($item);
       if ($item) {
-        $dto = new BooleanDTO($item->update($input));
+        $item->siteName = $request->siteName;
+        $item->siteCode = $request->siteCode;
+        $item->siteLogo = $request->siteLogo;
+        $item->siteDescription = $request->siteDescription;
+        $item->siteTitle = $request->siteTitle;
+        $item->keywords = $request->keywords;
+        $item->tags = $request->tags;
+        $item->author = $request->author;
+        $item->copyright = $request->copyright;
+        $item->phone = $request->phone;
+        $item->email = $request->email;
+        $item->address = $request->address;
+        $item->language = $request->language;
+        $item->currency = $request->currency;
+        $item->status = $request->status;
+        $item->pendingPage = $request->pendingPage;
+        $item->facebookAcc = $request->facebookAcc;
+        $item->zaloAcc = $request->zaloAcc;
+        $item->gplusAcc = $request->gplusAcc;
+        $item->linkedinAcc = $request->linkedinAcc;
+        
+        $dto = new BooleanDTO($item->save());
         return response()->json($dto->output());
       } else {
         $item = new SiteConfigModel();
@@ -59,5 +79,12 @@ class SiteConfigController extends AbstractController {
     }
     $dto = new BooleanDTO(false);
     return response()->json($dto->output());
+  }
+  
+  /**
+   * Init Controller
+   */
+  public function init() {
+    // TODO: Implement init() method.
   }
 }

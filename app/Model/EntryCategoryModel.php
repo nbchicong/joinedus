@@ -19,7 +19,6 @@
 namespace App\Model;
 
 class EntryCategoryModel extends BaseModel {
-  protected $primaryKey = 'id';
   protected $table = 'entry_category';
   protected $fillable = array('name', 'parentId');
 }

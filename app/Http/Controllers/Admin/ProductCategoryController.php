@@ -18,6 +18,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Bo\ProductCategoryBO;
 use Illuminate\Http\Request;
 use App\Model\ProductCategoryModel;
 use App\Data\BooleanDTO;
@@ -25,7 +26,12 @@ use App\Utils\StringUtils;
 use App\Http\Controllers\AbstractController;
 
 class ProductCategoryController extends AbstractController {
-  protected function index() {
+  /**
+   * @var \App\Bo\ProductCategoryBO
+   */
+  private $bo;
+  
+  public function index() {
     return view('admin.product-category', array(
         'categoryList' => ProductCategoryModel::paginate(0),
         'title'=>'Danh sách thể loại')
@@ -44,7 +50,7 @@ class ProductCategoryController extends AbstractController {
   protected function create(Request $request) {
     $cate = new ProductCategoryModel();
     $cate = $this->getModel($cate, $request);
-    $dto = new BooleanDTO($cate->save());
+    $dto = new BooleanDTO($this->bo->add($cate));
     return response()->json($dto->output());
   }
   protected function update(Request $request) {
@@ -53,7 +59,7 @@ class ProductCategoryController extends AbstractController {
       $cateItem = ProductCategoryModel::find($cateId);
       if ($cateItem) {
         $cateItem = $this->getModel($cateItem, $request);
-        $dto = new BooleanDTO($cateItem->save());
+        $dto = new BooleanDTO($this->bo->update($cateItem));
         return response()->json($dto->output());
       }
       $dto = new BooleanDTO(false);
@@ -62,12 +68,20 @@ class ProductCategoryController extends AbstractController {
     $dto = new BooleanDTO(false);
     return response()->json($dto->output());
   }
+  
+  /**
+   * Delete Category by Id
+   *
+   * @param Request $request
+   *
+   * @return \Illuminate\Http\JsonResponse
+   */
   protected function delete(Request $request) {
     $cateId = $request->input('id');
     if (!empty($cateId) && $request->user()->hasRole('ADMIN')) {
-      $cateItem = ProductCategoryModel::find($cateId);
+      $cateItem = $this->bo->load($cateId);
       if ($cateItem) {
-        $dto = new BooleanDTO($cateItem->delete());
+        $dto = new BooleanDTO($this->bo->delete($cateId));
         return response()->json($dto->output());
       }
       $dto = new BooleanDTO(false);
@@ -75,5 +89,11 @@ class ProductCategoryController extends AbstractController {
     }
     $dto = new BooleanDTO(false);
     return response()->json($dto->output());
+  }
+  /**
+   * Init Controller
+   */
+  public function init() {
+    $this->bo = new ProductCategoryBO();
   }
 }
