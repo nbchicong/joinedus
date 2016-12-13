@@ -2,65 +2,86 @@
 
 namespace App\Http\Controllers;
 
+use App\Bo\FileEntryBO;
+use App\Data\BooleanDTO;
+use App\Data\DataServiceDTO;
 use Log;
 use App\Utils\StringUtils;
 use App\Model\FileEntry;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
-use Illuminate\Http\Response;
+use App\Utils\StorageUtils;
 
 class FileEntryController extends AbstractController {
-  private $storage = 'public_file_entry';
-  protected function listFile() {
-    return response()->json(FileEntry::paginate(0));
-  }
-
   /**
+   * @var \App\Bo\FileEntryBO
+   */
+  private $bo;
+  
+  protected function paging(Request $request) {
+    $keyword = $this->getParams('keywords', $request);
+    $offset = $this->getOffset($request);
+    $limit = $this->getLimit($request);
+    $dto = new DataServiceDTO(
+        $this->bo->query($keyword, $limit, $offset * $limit),
+        $this->bo->count()
+    );
+    return response()->json($dto->output());
+  }
+  
+  /**
+   * @param Request $request
+   *
    * @return FileEntry|null
    */
-  public function saveToLocal() {
-    $file = Input::file('fileUpload');
-    if ($file) {
+  public function create(Request $request) {
+    $file = $this->getFileUpload($request);
+    $dto = new BooleanDTO(false);
+    if (assertThat($file, isNull())) {
       $extension = $file->getClientOriginalExtension();
       $uuid = StringUtils::generateUuid();
-      Storage::disk($this->storage)->put($uuid . '.' . $extension, File::get($file));
+//      Storage::disk(WebConstant::PUBLIC_STORAGE)->put($uuid . '.' . $extension, File::get($file));
+      StorageUtils::save($uuid . '.' . $extension, $file);
       $entry = new FileEntry();
       $entry->code = $uuid;
       $entry->mimetype = $file->getClientMimeType();
       $entry->original_filename = $file->getClientOriginalName();
       $entry->filename = $uuid . '.' . $extension;
-      if ($entry->save())
-        return $entry;
-      return null;
+      $dto->setSuccess($this->bo->add($entry));
     }
-    return null;
-  }
-
-  protected function add(Request $request) {
-    return response()->json(isset($this->saveToLocal($request)->code));
+    return response()->json($dto->output());
   }
   
-  public static function remove($imgCode) {
+  public function remove($imgCode) {
     if (!empty($imgCode)) {
-      $entry = FileEntry::where('code', '=', $imgCode)->firstOrFail();
-      if ($entry) return $entry->delete();
-      return false;
+      $entry = $this->bo->loadByCode($imgCode);
+      $dto = new BooleanDTO(false);
+      if ($entry) {
+        $dto->setSuccess($entry->delete());
+      }
+      return response()->json($dto->output());
     }
     return false;
   }
 
-  protected function get($fileName, $w=255, $h=237) {
-    $entry = FileEntry::where('code', '=', $fileName)->firstOrFail();
-    $file = Storage::disk($this->storage)->get($entry->filename);
-    return new Response($file, 200, array('Content-type' => $entry->mimetype));
+  protected function get($fileCode) {
+    $entry = $this->bo->loadByCode($fileCode);
+    return response(StorageUtils::loadByName($entry->filename), 200, array('Content-type' => $entry->mimetype));
+  }
+  
+  /**
+   * @param $fileCode
+   *
+   * @return string
+   */
+  protected function getPath($fileCode) {
+    $entry = $this->bo->loadByCode($fileCode);
+    return StorageUtils::getFilePath($entry->filename);
   }
   
   /**
    * Init Controller
    */
   public function init() {
-    // TODO: Implement init() method.
+    $this->bo = new FileEntryBO();
   }
 }

@@ -20,5 +20,8 @@ namespace App\Bo;
 
 
 interface DatabaseImpl {
+  /**
+   * Init Database
+   */
   public function init();
 }

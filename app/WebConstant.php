@@ -26,4 +26,7 @@ class WebConstant {
   const PREFIX_GET_FUNC_MODEL = "get";
   const WEB_EXT = ".html";
   const SERVICE_EXT = ".svc";
+  const PUBLIC_STORAGE = "public_file_entry";
+  const PRIVATE_STORAGE = "local_file_entry";
+  const AD_PAGE_LIMIT = 10;
 }

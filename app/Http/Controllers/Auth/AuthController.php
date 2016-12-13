@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Model\User;
-use Validator;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AbstractController;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
-{
+class AuthController extends AbstractController {
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -78,4 +77,12 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+  
+  /**
+   * Init Controller
+   */
+  public function init()
+  {
+    // TODO: Implement init() method.
+  }
 }

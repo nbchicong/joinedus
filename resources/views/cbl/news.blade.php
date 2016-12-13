@@ -10,11 +10,11 @@
                 <div class="row">
                     @foreach($newsList as $new)
                     <div class="media cbl-news-item">
-                        <a class="media-left" href="#">
+                        <a class="media-left"  href="{{Helper::getWebUrl('/tin-tuc/'.$new->id.'/'.$new->code)}}">
                             <img class="media-object" data-src="{{url('file/get')}}/{{$new->image}}" alt="{{$new->title}}" src="{{url('file/get')}}/{{$new->image}}" data-holder-rendered="true">
                         </a>
                         <div class="media-body">
-                            <a class="cbl-news-title" href="{{Helper::getWebUrl('/tin-tuc/'.$new->code)}}">
+                            <a class="cbl-news-title" href="{{Helper::getWebUrl('/tin-tuc/'.$new->id.'/'.$new->code)}}">
                                 <h4 class="media-heading">{{$new->title}}</h4>
                             </a>
                             {{--<p>Đăng vào:</p>--}}

@@ -25,11 +25,18 @@ use Illuminate\Support\Facades\DB;
 
 abstract class AbstractBO implements DatabaseImpl {
   protected $tableName;
-  private $dbTable;
-
+  
   public function __construct() {
     $this->init();
-    $this->dbTable = DB::table($this->tableName);
+  }
+  
+  /**
+   * @param $query
+   *
+   * @return mixed
+   */
+  protected function executeQuery($query) {
+    return DB::raw($query);
   }
   
   /**
@@ -37,7 +44,14 @@ abstract class AbstractBO implements DatabaseImpl {
    * @return \Illuminate\Database\Query\Builder
    */
   protected function getDbTable() {
-    return $this->dbTable;
+    return DB::table($this->tableName);
+  }
+  
+  /**
+   * @return int
+   */
+  public function count() {
+    return $this->getDbTable()->offset(-1)->count('*');
   }
   
   /**

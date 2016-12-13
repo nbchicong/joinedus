@@ -1,3 +1,4 @@
+<script type="text/javascript">var svcExt = '{{$serviceExt}}', webExt = '{{$webExt}}';</script>
 <nav class="navbar navbar-fixed-top bg-faded">
     <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#top-navbar-xs" aria-controls="top-navbar-xs" aria-expanded="false" aria-label="Toggle navigation">
         &#9776;

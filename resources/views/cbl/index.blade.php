@@ -8,9 +8,9 @@
             @include('widgets.cbl.site.product-cate')
             <div class="col-md-9 col-sm-8 cbl-list-content col-xs-12">
                 <div class="row">
-                    @foreach($newProductList as $product)
+                    @foreach($featureProductList as $product)
                     <div class="col-md-4 cbl-item">
-                        <a href="{{Helper::getWebUrl('/san-pham/'.$product->categoryId.'/'.$product->nameCode)}}">
+                        <a href="{{Helper::getWebUrl('/san-pham/'.$product->categoryId.'.'.$product->id.'/'.$product->nameCode)}}">
                             <img src="{{url('file/get')}}/{{$product->imageCodes}}">
                             <div class="name">{{$product->name}}</div>
                         </a>

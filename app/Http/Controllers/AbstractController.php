@@ -16,14 +16,15 @@
 
 namespace App\Http\Controllers;
 
-use Log;
 use App\WebConstant;
+use Illuminate\Http\Request;
+use Log;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 abstract class AbstractController extends Controller {
   protected $model = null;
-
+  
   /**
    * Get current language of system
    * @return string
@@ -39,14 +40,16 @@ abstract class AbstractController extends Controller {
   protected function isAuth() {
     return Auth::check();
   }
-
+  
   /**
    * Get current user logged
+   * @param Request $request
+   *
    * @return \App\Model\User|null
    */
-  protected function getPrincipal() {
+  protected function getPrincipal(Request $request) {
     if ($this->isAuth())
-      return Auth::user();
+      return $request->user();
     return null;
   }
 //
@@ -70,28 +73,25 @@ abstract class AbstractController extends Controller {
 //          $this->model->{WebConstant::PREFIX_SET_FUNC_MODEL . ucfirst($name)}($value);
 //    return $this->model;
 //  }
-
+  
   /**
    * Get Limit rows query
+   * @param Request $request
+   *
    * @return int
    */
-  protected function getLimit() {
-    return (int) $this->getParams(WebConstant::PAGE_LIMIT_PARAM);
-  }
-
-  /**
-   * Get offset rows query
-   * @return int
-   */
-  protected function getOffset() {
-    return (int) $this->getParams(WebConstant::PAGE_OFFSET_PARAM);
+  protected function getLimit(Request $request) {
+    return (int) $this->getParams(WebConstant::PAGE_LIMIT_PARAM, $request, WebConstant::AD_PAGE_LIMIT);
   }
   
   /**
-   * @return mixed|null
+   * Get offset rows query
+   * @param Request $request
+   *
+   * @return int
    */
-  protected function getBo() {
-    return $this->bo;
+  protected function getOffset(Request $request) {
+    return (int) $this->getParams(WebConstant::PAGE_OFFSET_PARAM, $request, 0);
   }
 
   protected function index() {}

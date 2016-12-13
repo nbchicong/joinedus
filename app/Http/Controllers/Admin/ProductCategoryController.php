@@ -18,8 +18,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Bo\ProductCategoryBO;
 use Illuminate\Http\Request;
+use Log;
+use App\Bo\ProductCategoryBO;
+use App\Data\DataServiceDTO;
+use App\WebConstant;
 use App\Model\ProductCategoryModel;
 use App\Data\BooleanDTO;
 use App\Utils\StringUtils;
@@ -33,20 +36,27 @@ class ProductCategoryController extends AbstractController {
   
   public function index() {
     return view('admin.product-category', array(
-        'categoryList' => ProductCategoryModel::paginate(0),
+        'categoryList' => $this->bo->query('', -1, 0),
         'title'=>'Danh sách thể loại')
     );
   }
-  protected function listCate() {
-    return response()->json(ProductCategoryModel::paginate(0));
+  protected function paging(Request $request) {
+    $keyword = $this->getParams('keywords', $request);
+    $offset = $this->getParams('pageNumber', $request);
+    $dto = new DataServiceDTO(
+        $this->bo->query($keyword, WebConstant::AD_PAGE_LIMIT, $offset * WebConstant::AD_PAGE_LIMIT),
+        $this->bo->count()
+    );
+    return response()->json($dto->output());
   }
 
   private function getModel(ProductCategoryModel $model, Request $request) {
-    $model->name = $request->input('name');
+    $model->name = $this->getParams('name', $request);
     $model->code = StringUtils::replace2Code($model->name);
-    $model->parentCateId = $request->input('parentCateId');
+    $model->parentCateId = $this->getParams('parentCateId', $request);
     return $model;
   }
+  
   protected function create(Request $request) {
     $cate = new ProductCategoryModel();
     $cate = $this->getModel($cate, $request);
@@ -54,10 +64,11 @@ class ProductCategoryController extends AbstractController {
     return response()->json($dto->output());
   }
   protected function update(Request $request) {
-    $cateId = $request->input('id');
-    if (!empty($cateId) && $request->user()->hasRole('ADMIN')) {
-      $cateItem = ProductCategoryModel::find($cateId);
+    $cateId = $this->getParams('id', $request);
+    if (!empty($cateId) && $this->getPrincipal($request) && $this->getPrincipal($request)->hasRole('ADMIN')) {
+      $cateItem = $this->bo->load($cateId);
       if ($cateItem) {
+        /** @noinspection PhpParamsInspection */
         $cateItem = $this->getModel($cateItem, $request);
         $dto = new BooleanDTO($this->bo->update($cateItem));
         return response()->json($dto->output());

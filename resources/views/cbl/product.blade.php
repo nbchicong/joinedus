@@ -10,7 +10,7 @@
                 <div class="row">
                     @foreach($productList as $product)
                     <div class="col-md-4 cbl-item">
-                        <a href="{{Helper::getWebUrl('/san-pham/'.$product->categoryId.'/'.$product->nameCode)}}">
+                        <a href="{{Helper::getWebUrl('/san-pham/'.$product->categoryId.'.'.$product->id.'/'.$product->nameCode)}}">
                             <img src="{{url('file/get')}}/{{$product->imageCodes}}">
                             <div class="name">{{$product->name}}</div>
                         </a>
@@ -57,7 +57,7 @@
                                     <i>{{$index}}</i>
                                 </a>
                                 @else
-                                <a href="{{Helper::getWebUrl('/san-pham')}}?current={{$index}}">
+                                <a href="{{Helper::getWebUrl('/san-pham')}}?pageNumber={{$index}}">
                                     <b>{{$index}}</b>
                                     </a>
                                 @endif

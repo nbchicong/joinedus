@@ -193,4 +193,12 @@ class HomeController extends Controller {
   public function search($query) {
     return view('products', array('page' => 'products'));
   }
+  
+  /**
+   * Init Controller
+   */
+  public function init()
+  {
+    // TODO: Implement init() method.
+  }
 }

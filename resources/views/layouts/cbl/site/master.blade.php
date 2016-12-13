@@ -5,6 +5,7 @@
     <title>@yield('pageTitle') - {{$site->siteName}}</title>
     <link type="text/css" rel="stylesheet" href="{{asset('css/cbl/bootstrap.min.css')}}">
     <link type="text/css" rel="stylesheet" href="{{asset('css/cbl/tether.min.css')}}">
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&subset=vietnamese">
     <link type="text/css" rel="stylesheet" href="{{asset('css/cbl/style.css')}}">
 </head>

@@ -18,8 +18,7 @@
 
 namespace App\Bo;
 
-
-use App\Model\ProductCategoryModel;
+use Illuminate\Support\Facades\Log;
 
 class ProductCategoryBO extends AbstractBO {
   public function init() {
@@ -34,10 +33,40 @@ class ProductCategoryBO extends AbstractBO {
    * @return array|static[]
    */
   public function query($keyword, $limit, $offset) {
+    $query = $this->getDbTable();
+    if (!assertThat($keyword, isEmptyOrNullString())) {
+      $query->where('name', 'LIKE', '%' . $keyword . '%')
+          ->orWhere('code', 'LIKE', '%' . $keyword . '%');
+    }
+    if (isset($limit) && $limit > 0)
+      $query->limit($limit);
+    if (isset($offset) && $offset > 0)
+      $query->offset($offset);
+    return $query->get();
+  }
+  
+  /**
+   * @return array|static[]
+   */
+  public function getParent() {
     return $this->getDbTable()
-        ->where('name', 'LIKE', '%'.$keyword.'%')
-        ->orWhere('code', 'LIKE', '%'.$keyword.'%')
-        ->limit($limit)->offset($offset)
+        ->where('parentCateId', '=', '')
+        ->orWhereNull('parentCateId')
+        ->get();
+  }
+  
+  /**
+   * @param string $parentId
+   *
+   * @return array|static[]
+   */
+  public function getChildren($parentId = '') {
+    $this->getDbTable();
+    if (!empty($parentId)) {
+      return $this->getDbTable()->where('parentCateId', $parentId)->get();
+    }
+    return $this->getDbTable()
+        ->where('parentCateId', '<>', '')
         ->get();
   }
 }

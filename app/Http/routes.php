@@ -14,12 +14,13 @@
 // WEB CBL
 Route::get('/', 'Web\CBLIndexController@index');
 Route::get(Helper::getRouteWebPath('/index'), 'Web\CBLIndexController@index');
-Route::get(Helper::getRouteWebPath('/tin-tuc'), 'Web\CBLNewController@index');
-Route::get(Helper::getRouteWebPath('/tin-tuc/{code}'), 'Web\CBLNewController@load');
+Route::get(Helper::getRouteWebPath('/tin-tuc'), 'Web\CBLNewsController@index');
+Route::get(Helper::getRouteWebPath('/tin-tuc/{newsId}/{code}'), 'Web\CBLNewsController@load');
 Route::get(Helper::getRouteWebPath('/noi-dung/{code}'), 'Web\CBLPageController@load');
 Route::get(Helper::getRouteWebPath('/san-pham'), 'Web\CBLProductController@index');
-Route::get(Helper::getRouteWebPath('/san-pham/{cate}'), 'Web\CBLProductController@cate');
-Route::get(Helper::getRouteWebPath('/san-pham/{cate}/{code}'), 'Web\CBLProductController@load');
+Route::get(Helper::getRouteWebPath('/san-pham/{cate}.{code}'), 'Web\CBLProductController@cate');
+Route::get(Helper::getRouteWebPath('/san-pham/{cate}/{subCate}.{code}'), 'Web\CBLProductController@subCate');
+Route::get(Helper::getRouteWebPath('/san-pham/{cate}.{productId}/{code}'), 'Web\CBLProductController@load');
 
 // WEB E-SHOPPER
 //Route::get('/','Web\HomeController@index');
@@ -54,7 +55,7 @@ Route::get('/file/get/{code}', ['as' => 'getFile', 'uses' => 'FileEntryControlle
 
 Route::group(['middleware' => ['roles:writer']], function() {
   Route::post('/admin/file/add','Admin\FileEntryController@add');
-  Route::get('/admin/file/list','Admin\FileEntryController@listFile');
+  Route::get(Helper::getRouteServicePath('/admin/file/list'),'Admin\FileEntryController@paging');
 
   Route::get(Helper::getRouteWebPath('/admin/product'),'Admin\ProductController@index');
   Route::get('/admin/product/list','Admin\ProductController@listItems');
@@ -85,10 +86,10 @@ Route::group(['middleware' => ['roles:writer']], function() {
 });
 Route::group(['middleware' => ['roles:admin']], function() {
   Route::get(Helper::getRouteWebPath('/admin/product/category'),'Admin\ProductCategoryController@index');
-  Route::get('/admin/product/category/list','Admin\ProductCategoryController@listCate');
-  Route::post('/admin/product/category/create','Admin\ProductCategoryController@create');
-  Route::post('/admin/product/category/update','Admin\ProductCategoryController@update');
-  Route::post('/admin/product/category/remove','Admin\ProductCategoryController@delete');
+  Route::get(Helper::getRouteServicePath('/admin/product/category/list'),'Admin\ProductCategoryController@paging');
+  Route::post(Helper::getRouteServicePath('/admin/product/category/create'),'Admin\ProductCategoryController@create');
+  Route::post(Helper::getRouteServicePath('/admin/product/category/update'),'Admin\ProductCategoryController@update');
+  Route::post(Helper::getRouteServicePath('/admin/product/category/remove'),'Admin\ProductCategoryController@delete');
 
   Route::get(Helper::getRouteWebPath('/admin/product/brand'),'Admin\BrandController@index');
   Route::get('/admin/product/brand/list','Admin\BrandController@listCate');
@@ -109,7 +110,7 @@ Route::group(['middleware' => ['roles:admin']], function() {
 
 Route::group(['middleware' => ['roles:super_admin']], function() {
   Route::get(Helper::getRouteWebPath('/admin/users'),'Admin\UserController@index');
-  Route::get('/admin/users/list','Admin\UserController@listUser');
+  Route::get('/admin/users/list','Admin\UserController@paging');
   Route::post('/admin/users/create','Admin\UserController@create');
   Route::post('/admin/users/update','Admin\UserController@update');
   Route::post('/admin/users/remove','Admin\UserController@delete');

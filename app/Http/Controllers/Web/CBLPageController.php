@@ -58,4 +58,12 @@ class CBLPageController extends AbstractController {
     Log::debug($cateParentList);
     return $cateParentList;
   }
+  
+  /**
+   * Init Controller
+   */
+  public function init()
+  {
+    // TODO: Implement init() method.
+  }
 }

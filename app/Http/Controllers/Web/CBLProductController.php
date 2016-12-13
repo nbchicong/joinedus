@@ -18,6 +18,9 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Bo\ProductBO;
+use App\Bo\ProductCategoryBO;
+use Illuminate\Http\Request;
 use Log;
 use App\Http\Requests\BaseRequest;
 use App\Model\BrandModel;
@@ -28,6 +31,16 @@ use App\Utils\Constants;
 use App\Http\Controllers\AbstractController;
 
 class CBLProductController extends AbstractController {
+  /**
+   * @var \App\Bo\ProductBO
+   */
+  private $productBO;
+  
+  /**
+   * @var \App\Bo\ProductCategoryBO
+   */
+  private $cateBO;
+  
   public function index() {
     $request = new BaseRequest();
     $offset = $request->input('current', 0);
@@ -39,13 +52,13 @@ class CBLProductController extends AbstractController {
     ));
   }
   
-  public function load($cate, $code) {
-    $product = ProductModel::where('nameCode', $code)
-        ->where('categoryId', $cate)
-        ->first();
+  public function load($cate, $productId, $code) {
+    Log::debug('Load Product '. $productId);
+    $product = $this->productBO->load($productId);
     if (!$product) {
       $product = new ProductModel();
     } else {
+      /** @noinspection PhpParamsInspection */
       $this->updateProductCountView($product);
     }
     return view('cbl.product-detail', array(
@@ -55,9 +68,9 @@ class CBLProductController extends AbstractController {
     ));
   }
   
-  public function cate($cateCode) {
-    $request = new BaseRequest();
-    $offset = $request->input('current', 0);
+  public function cate(Request $request, $cateCode, $cateId) {
+    Log::debug('Load Category');
+    $offset = $this->getOffset($request);
     if ($cateCode == 'catalogue')
       return view('cbl.product', array(
           'categoryList' => $this->loadCateList(),
@@ -76,9 +89,20 @@ class CBLProductController extends AbstractController {
       return view('cbl.product', array(
           'categoryList' => $this->loadCateList(),
           'carouselList' => $this->getCarousel(),
-          'productList' => $this->getByCate($cateCode, $offset),
+          'productList' => $this->getByCate($cateId),
           'current' => $offset
       ));
+  }
+  
+  public function subCate(Request $request, $cate, $cateCode, $cateId) {
+    Log::debug('Load Sub Category');
+    $offset = $this->getOffset($request);
+    return view('cbl.product', array(
+        'categoryList' => $this->loadCateList(),
+        'carouselList' => $this->getCarousel(),
+        'productList' => $this->getByCate($cateId),
+        'current' => $offset
+    ));
   }
   
   private function getAllProduct() {
@@ -100,12 +124,11 @@ class CBLProductController extends AbstractController {
         ->get();
   }
   
-  private function getByCate($cateCode, $offset) {
-    $cate = ProductCategoryModel::where('code', $cateCode)->first();
-    return ProductModel::where('categoryId', $cate->id)
-        ->offset($offset)
-        ->limit(Constants::PRODUCT_PAGE_SIZE)
-        ->get();
+  private function getByCate($cateId) {
+    $cate = $this->cateBO->load($cateId);
+    if ($cate)
+      return $this->productBO->queryByCate($cateId, null, null);
+    return array();
   }
   
   private function getTotal() {
@@ -128,13 +151,12 @@ class CBLProductController extends AbstractController {
         foreach ($cateParentList as $parent)
           if ($parent->id == $cate->parentCateId)
             $parent->childrens = $this->loadCateByParentId($cate->parentCateId);
-    Log::debug("List cate");
-    Log::debug($cateParentList);
     return $cateParentList;
   }
   
-  private function updateProductCountView(ProductModel $product) {
-    Log::debug("Update Product Count View");
+  private function updateProductCountView($product) {
+    Log::debug("Update Product Count View: ");
+    Log::debug($product);
     $countView = $product->countView;
     if (empty($countView))
       $countView = 0;
@@ -160,5 +182,13 @@ class CBLProductController extends AbstractController {
       $countView = 0;
     $brand->countView = ($countView + 1);
     $brand->update($brand->toArray());
+  }
+  
+  /**
+   * Init Controller
+   */
+  public function init() {
+    $this->productBO = new ProductBO();
+    $this->cateBO = new ProductCategoryBO();
   }
 }

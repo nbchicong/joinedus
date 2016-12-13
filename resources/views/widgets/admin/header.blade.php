@@ -1,3 +1,4 @@
+<script type="text/javascript">var svcExt = '{{$serviceExt}}', webExt = '{{$webExt}}';</script>
 <div id="navbar" class="navbar navbar-default ace-save-state navbar-fixed-top">
     <div class="navbar-container ace-save-state" id="navbar-container">
         <button type="button" class="navbar-toggle menu-toggler pull-left fixed" id="menu-toggler" data-target="#sidebar">

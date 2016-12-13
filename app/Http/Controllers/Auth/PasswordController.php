@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AbstractController;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
-class PasswordController extends Controller
-{
+class PasswordController extends AbstractController {
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
@@ -30,4 +29,12 @@ class PasswordController extends Controller
         parent::__construct();
         $this->middleware('guest');
     }
+  
+  /**
+   * Init Controller
+   */
+  public function init()
+  {
+    // TODO: Implement init() method.
+  }
 }
