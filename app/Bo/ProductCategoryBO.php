@@ -69,4 +69,11 @@ class ProductCategoryBO extends AbstractBO {
         ->where('parentCateId', '<>', '')
         ->get();
   }
+  
+  /**
+   * @param string $cateId
+   */
+  public function updateCountView($cateId) {
+    $this->getDbTable()->where('id', $cateId)->increment('countView', 1);
+  }
 }

@@ -21,13 +21,13 @@
                 <a class="nav-link splitter">|</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{Helper::getWebUrl('/san-pham/catalogue')}}">Catalogue</a>
+                <a class="nav-link" href="{{Helper::getWebUrl('/san-pham/catalogue.all')}}">Catalogue</a>
             </li>
             <li class="nav-item hidden-xs-down">
                 <a class="nav-link splitter">|</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{Helper::getWebUrl('/san-pham/khuyen-mai')}}">Sản phẩm khuyến mãi</a>
+                <a class="nav-link" href="{{Helper::getWebUrl('/san-pham/khuyen-mai.all')}}">Sản phẩm khuyến mãi</a>
             </li>
             <li class="nav-item hidden-xs-down">
                 <a class="nav-link splitter">|</a>

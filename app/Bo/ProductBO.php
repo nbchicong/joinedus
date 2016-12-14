@@ -68,6 +68,18 @@ class ProductBO extends AbstractBO {
   }
   
   /**
+   * @return array|static[]
+   */
+  public function getPromotion() {
+    $query = $this->getDbTable();
+    $query->where('promotions', 1)
+        ->orderBy('created_at')
+        ->limit(Constants::HOME_NEW_PRODUCT_SIZE)
+        ->offset(0);
+    return $query->get();
+  }
+  
+  /**
    * @param string $cateId
    * @param int    $limit
    * @param int    $offset

@@ -13,7 +13,7 @@
                         <img class="" alt="{{$productDetail->name}}" src="{{url('file/get')}}/{{$productDetail->imageCodes}}" style="max-width:100%">
                     </div>
                     <div class="content">
-                        {{$productDetail->detail}}
+                        {{Helper::echoHtml($productDetail->details)}}
                     </div>
                 </div>
             </div>

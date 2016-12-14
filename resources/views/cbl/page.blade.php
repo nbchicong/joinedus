@@ -10,7 +10,7 @@
                 <div class="row">
                     <h4 class="media-heading">{{$page->title}}</h4>
                     <div class="content">
-                        {{$page->content}}
+                        {{Helper::echoHtml($page->content)}}
                     </div>
                 </div>
             </div>

@@ -55,12 +55,13 @@ class CBLProductController extends AbstractController {
   public function load($cate, $productId, $code) {
     Log::debug('Load Product '. $productId);
     $product = $this->productBO->load($productId);
-    if (!$product) {
+    if (!$product)
       $product = new ProductModel();
-    } else {
-      /** @noinspection PhpParamsInspection */
-      $this->updateProductCountView($product);
+    else {
+      $product = $product[0];
+      $this->updateCountView($product);
     }
+    Log::debug($product->details);
     return view('cbl.product-detail', array(
         'categoryList' => $this->loadCateList(),
         'carouselList' => $this->getCarousel(),
@@ -75,14 +76,14 @@ class CBLProductController extends AbstractController {
       return view('cbl.product', array(
           'categoryList' => $this->loadCateList(),
           'carouselList' => $this->getCarousel(),
-          'productList' => $this->getAllProduct(),
+          'productList' => $this->productBO->query('', -1, -1),
           'current' => 0
       ));
     elseif ($cateCode == 'khuyen-mai')
       return view('cbl.product', array(
           'categoryList' => $this->loadCateList(),
           'carouselList' => $this->getCarousel(),
-          'productList' => $this->getPromotion($offset),
+          'productList' => $this->productBO->getPromotion(),
           'current' => 0
       ));
     else
@@ -131,10 +132,6 @@ class CBLProductController extends AbstractController {
     return array();
   }
   
-  private function getTotal() {
-    return ProductModel::count();
-  }
-  
   private function getCarousel() {
     return CarouselModel::paginate(Constants::HOME_CAROUSEL_PAGE_SIZE);
   }
@@ -154,34 +151,13 @@ class CBLProductController extends AbstractController {
     return $cateParentList;
   }
   
-  private function updateProductCountView($product) {
-    Log::debug("Update Product Count View: ");
-    Log::debug($product);
-    $countView = $product->countView;
-    if (empty($countView))
-      $countView = 0;
-    $product->countView = ($countView + 1);
-    $product->update($product->toArray());
-    $this->updateCategoryCountView(ProductCategoryModel::find($product->categoryId));
-    $this->updateBrandCountView(BrandModel::find($product->brandId));
-  }
-  
-  private function updateCategoryCountView(ProductCategoryModel $category) {
-    Log::debug("Update Category Count View");
-    $countView = $category->countView;
-    if (empty($countView))
-      $countView = 0;
-    $category->countView = ($countView + 1);
-    $category->update($category->toArray());
-  }
-  
-  private function updateBrandCountView(BrandModel $brand) {
-    Log::debug("Update Brand Count View");
-    $countView = $brand->countView;
-    if (empty($countView))
-      $countView = 0;
-    $brand->countView = ($countView + 1);
-    $brand->update($brand->toArray());
+  private function updateCountView($product) {
+    Log::debug("Update Product Count View: ". $product->details);
+    $this->productBO->updateCountView($product->id);
+    $this->cateBO->updateCountView($product->categoryId);
+    if (!is_null($product->brandId)) {
+      // TODO: update brand count view
+    }
   }
   
   /**

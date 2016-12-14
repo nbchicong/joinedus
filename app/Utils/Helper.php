@@ -53,4 +53,9 @@ class Helper {
   public static function getServiceUrl($path) {
     return url($path) . WebConstant::SERVICE_EXT;
   }
+  
+  public static function echoHtml($content) {
+    echo html_entity_decode($content);
+    return '';
+  }
 }

@@ -13,7 +13,7 @@
                         <img class="" alt="{{$entry->title}}" src="{{url('file/get')}}/{{$entry->image}}" style="max-width:100%">
                     </div>
                     <div class="content">
-                        {{$entry->content}}
+                        {{Helper::echoHtml($entry->content)}}
                     </div>
                 </div>
             </div>
